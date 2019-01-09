@@ -31,4 +31,9 @@ public class OrderController extends HttpServlet {
         engine.process("cart.html", context, resp.getWriter());
 
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("got POST req");
+    }
 }

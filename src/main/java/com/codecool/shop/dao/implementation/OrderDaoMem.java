@@ -36,6 +36,10 @@ public class OrderDaoMem implements OrderDao {
         return null;
     }
 
+    public Order findLast() {
+        return data.get(data.size());
+    }
+
     @Override
     public void remove(int id) {
         data.remove(find(id));
@@ -45,4 +49,6 @@ public class OrderDaoMem implements OrderDao {
     public List<Order> getAll() {
         return data;
     }
+
+
 }

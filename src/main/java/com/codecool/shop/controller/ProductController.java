@@ -44,8 +44,10 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String chosenCategory = req.getParameter("category");
-        String chosenSupplier = req.getParameter("supplier");
+        String chosenCategory = req.getParameter("categoryName");
+        String chosenSupplier = req.getParameter("supplierName");
+        System.out.println(chosenCategory);
+        System.out.println(chosenSupplier);
     }
 
 }

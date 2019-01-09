@@ -4,6 +4,7 @@
     <div th:replace="header.html :: header"></div>
     <title>Codecool Shop</title>
     <script th:src="@{/static/scripts/item_collector.js}" defer></script>
+    <script th:src="@{/static/scripts/products_sorter.js}" defer></script>
     <script th:src="@{/static/scripts/main.js}" defer></script>
 </head>
 
@@ -19,18 +20,18 @@
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Category
             </button>
-            <div th:name="category" class="dropdown-menu" >
-                <a class="dropdown-item" th:each="cat,iterStat : ${categories}"
-                   href="#" th:value="${cat.name}" th:text="${cat.name}">Category Title</a>
+            <div class="dropdown-menu" >
+                <a class="dropdown-item category" th:attr="data-category-name=${cat.name}" th:each="cat,iterStat : ${categories}"
+                   th:text="${cat.name}">Category</a>
             </div>
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Supplier
             </button>
-            <div th:name="supplier" class="dropdown-menu">
-                <a class="dropdown-item" th:each="sup,iterStat : ${suppliers}"
-                   href="#" th:value="${sup.name}" th:text="${sup.name}">Category Title</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item supplier" th:attr="data-supplier-name=${sup.name}" th:each="sup,iterStat : ${suppliers}"
+                   th:text="${sup.name}">Supplier</a>
             </div>
         </div>
     </div>

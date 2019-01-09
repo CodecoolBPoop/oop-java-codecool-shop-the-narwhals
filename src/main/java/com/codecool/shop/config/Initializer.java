@@ -80,10 +80,9 @@ public class Initializer implements ServletContextListener {
 
         productDataStore.add(new Product("Serious Clown Make-Up Kit", 49.9f, "Credits", "Description here", collectorItem, dcverse));
         productDataStore.add(new Product("Wakanda-made bionic arm", 49.9f, "Credits", "Description here", collectorItem, earth616));
-        productDataStore.add(new Product("Mace Windu's Eyepatch", 49.9f, "Credits", "Description here", collectorItem, sw));
+        productDataStore.add(new Product("Horn of Gondor", 49.9f, "Credits", "Description here", collectorItem, middleEarth));
         productDataStore.add(new Product("Bane's Mask", 49.9f, "Credits", "Description here", collectorItem, dcverse));
         productDataStore.add(new Product("Harry's Glasses", 49.9f, "Credits", "Description here", collectorItem, hogwarts));
-        productDataStore.add(new Product("Horn of Gondor", 49.9f, "Credits", "Description here", collectorItem, middleEarth));
 
 
     }

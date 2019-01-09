@@ -64,3 +64,8 @@
 {
     margin: 15px;
 }
+
+.panel-body {
+    padding-top: 70px;
+    text-align: center;
+}

@@ -6,7 +6,6 @@ import java.util.Currency;
 import java.util.List;
 
 public class Order extends BaseModel{
-    private int id;
     private List<LineItem> items = new ArrayList<>();
     private int totalSum;
 

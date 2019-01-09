@@ -3,6 +3,8 @@
 <head>
     <div th:replace="header.html :: header"></div>
     <title>Codecool Shop</title>
+    <script th:src="@{/static/scripts/item_collector.js}" defer></script>
+    <script th:src="@{/static/scripts/main.js}" defer></script>
 </head>
 
 <body>
@@ -45,7 +47,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success add-to-cart" href="#">Add to cart</a>
                         </div>
                     </div>
                 </div>

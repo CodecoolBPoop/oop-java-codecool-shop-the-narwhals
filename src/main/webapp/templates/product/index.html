@@ -39,20 +39,20 @@
     <div>
         <div class="btn-group">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Item Type
+                Category
             </button>
-            <div class="dropdown-menu" >
+            <div th:name="category" class="dropdown-menu" >
                 <a class="dropdown-item" th:each="cat,iterStat : ${categories}"
-                   href="#" th:text="${cat.name}">Category Title</a>
+                   href="#" th:value="${cat.name}" th:text="${cat.name}">Category Title</a>
             </div>
         </div>
         <div class="btn-group">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Supplier
             </button>
-            <div class="dropdown-menu" >
+            <div th:name="supplier" class="dropdown-menu">
                 <a class="dropdown-item" th:each="sup,iterStat : ${suppliers}"
-                   href="#" th:text="${sup.name}">Category Title</a>
+                   href="#" th:value="${sup.name}" th:text="${sup.name}">Category Title</a>
             </div>
         </div>
     </div>

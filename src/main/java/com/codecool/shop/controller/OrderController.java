@@ -26,7 +26,7 @@ public class OrderController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(servletContext);
         WebContext context = new WebContext(req,resp, servletContext);
 
-        context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast());
+        context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast()); // TODO: need to handle case of zero order
 
         engine.process("cart.html", context, resp.getWriter());
 

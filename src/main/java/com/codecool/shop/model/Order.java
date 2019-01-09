@@ -6,17 +6,25 @@ import java.util.Currency;
 import java.util.List;
 
 public class Order extends BaseModel{
+    private static Order instance = null;
     private List<LineItem> items = new ArrayList<>();
     private int totalSum;
 
     private final String CURRENCY = "Credits";
     private Currency defaultCurrency;
 
-    public Order(Product product, String orderName, String orderDescription) {
+    public Order(String orderName, String orderDescription) {
         super(orderName, orderDescription);
-        setDefaultCurrency(Currency.getInstance(CURRENCY));
-        addProduct(product);
-        totalSum += product.getDefaultPrice();
+//        setDefaultCurrency(Currency.getInstance(CURRENCY));
+    }
+
+    public static Order getInstance() {
+        if (instance == null) {
+            String orderName = "Current order";
+            String description = "The only active order for now";
+            instance = new Order(orderName, description);
+        }
+        return instance;
     }
 
     public void setDefaultCurrency(Currency defaultCurrency) {
@@ -47,8 +55,12 @@ public class Order extends BaseModel{
 
     private LineItem getLineItemByProductId(int productId) {
         return items.stream()
-                                    .filter(item -> item.getProductId() == productId)
-                                    .findFirst()
-                                    .orElse(null);
+                    .filter(item -> item.getProductId() == productId)
+                    .findFirst()
+                    .orElse(null);
+    }
+
+    public String seeItems() {
+        return items.toString();
     }
 }

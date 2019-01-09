@@ -3,6 +3,9 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -34,6 +37,14 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("got POST req");
+        int productId =  Integer.parseInt(req.getParameter("productId"));
+        System.out.println(productId);
+
+        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
+        Product product = productDataStore.getBy(productId);
+        Order order = Order.getInstance();
+        order.addProduct(product);
+
+        System.out.println(order.seeItems());
     }
 }

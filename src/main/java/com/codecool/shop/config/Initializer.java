@@ -24,8 +24,6 @@ public class Initializer implements ServletContextListener {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         //setting up a new supplier
-        Supplier allSupplier = new Supplier("All", "");
-        supplierDataStore.add(allSupplier);
         Supplier earth616 = new Supplier("Earth-616", "");
         supplierDataStore.add(earth616);
         Supplier middleEarth = new Supplier("Middle-Earth", "");
@@ -34,12 +32,10 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(dcVerse);
         Supplier hogwarts = new Supplier("Hogwarts", "");
         supplierDataStore.add(hogwarts);
-        Supplier sw = new Supplier("Galaxy far, far away", "");
+        Supplier sw = new Supplier("Faraway galaxy", "");
         supplierDataStore.add(sw);
 
         //setting up a new product category
-        ProductCategory allCategory = new ProductCategory("All", "", "");
-        productCategoryDataStore.add(allCategory);
         ProductCategory weapon = new ProductCategory("Weapon", "", "");
         productCategoryDataStore.add(weapon);
         ProductCategory mystic = new ProductCategory("Mystic", "", "");
@@ -48,6 +44,7 @@ public class Initializer implements ServletContextListener {
         productCategoryDataStore.add(vehicle);
         ProductCategory pet = new ProductCategory("Pet", "", "");
         productCategoryDataStore.add(pet);
+
         ProductCategory collectorItem = new ProductCategory("Collectors' Item", "", "");
         productCategoryDataStore.add(collectorItem);
 

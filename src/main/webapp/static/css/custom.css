@@ -52,6 +52,15 @@ body {
     padding-left: 50px;
 }
 
+.panel-body {
+    color: floralwhite;
+    text-align: center;
+}
+
+.firstoption {
+    margin-top: 80px;
+}
+
 .line-item {
     background-color: white;
     margin: 5px auto;

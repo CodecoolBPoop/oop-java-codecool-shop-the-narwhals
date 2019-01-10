@@ -28,26 +28,32 @@ public class ProductController extends HttpServlet {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
-//        Map params = new HashMap<>();
-//        params.put("category", productCategoryDataStore.find(1));
-//        params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-//        context.setVariables(params);
+        //context.setVariables(params);
+
+        String categoryIdFromUrl = req.getParameter("category");
+        String supplierIdFromUrl = req.getParameter("supplier");
+
         context.setVariable("recipient", "World");
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
+
+        if (categoryIdFromUrl != null && supplierIdFromUrl != null) {
+            context.setVariable("products", productDataStore.getByComplex(Integer.parseInt(categoryIdFromUrl), Integer.parseInt(supplierIdFromUrl)));
+        } else if (categoryIdFromUrl != null) {
+            context.setVariable("products",
+                    productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl))));
+            context.setVariable("categories", productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl)));
+        } else if (supplierIdFromUrl != null) {
+            context.setVariable("products",
+                    productDataStore.getBy(supplierDataStore.find(Integer.parseInt(supplierIdFromUrl))));
+            context.setVariable("suppliers", supplierDataStore.find(Integer.parseInt(supplierIdFromUrl)));
+        } else {
+            context.setVariable("products", productDataStore.getAll());
+        }
+
         engine.process("product/index.html", context, resp.getWriter());
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String chosenCategory = req.getParameter("categoryName");
-        String chosenSupplier = req.getParameter("supplierName");
-        System.out.println(chosenCategory);
-        System.out.println(chosenSupplier);
-    }
-
 }

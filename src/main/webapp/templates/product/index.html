@@ -4,7 +4,6 @@
     <div th:replace="header.html :: header"></div>
     <title>Collectors Shop</title>
     <script th:src="@{/static/scripts/item_collector.js}" defer></script>
-    <script th:src="@{/static/scripts/products_sorter.js}" defer></script>
     <script th:src="@{/static/scripts/main.js}" defer></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
@@ -12,33 +11,41 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Collectors Shop</h1>
+    <h1>The Collector's Shop</h1>
 </div>
 
 <div class="container justify-content-between d-flex" id="buttons-on-top">
     <div>
+        <form action="/">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            <select type="button" name="category" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                Category
-            </button>
+
+
             <div class="dropdown-menu">
-                <a class="dropdown-item category" th:attr="data-category-name=${cat.name}"
+                <option value="0">Select Category</option>
+                <option class="dropdown-item category" th:attr="data-category-name=${cat.name}"
                    th:each="cat,iterStat : ${categories}"
-                   th:text="${cat.name}">Category</a>
+                   th:text="${cat.name}" th:value="${cat.id}">Category</option>
             </div>
+            </select>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            <select type="button" name="supplier" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                Supplier
-            </button>
+
+
             <div class="dropdown-menu">
-                <a class="dropdown-item supplier" th:attr="data-supplier-name=${sup.name}"
+                <option value="0">Select Supplier</option>
+                <option class="dropdown-item supplier" th:attr="data-supplier-name=${sup.name}"
                    th:each="sup,iterStat : ${suppliers}"
-                   th:text="${sup.name}">Supplier</a>
+                   th:text="${sup.name}" th:value="${sup.id}">Supplier</option>
             </div>
+            </select>
         </div>
+            <input type="submit" class="btn btn-group btn-danger" value="Filter">
+
+        </form>
     </div>
     <div>
         <a class="btn btn-group btn-success" id="display-cart-button" th:href="@{/cart}">

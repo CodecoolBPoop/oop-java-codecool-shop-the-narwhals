@@ -49,7 +49,7 @@
     </div>
     <div>
         <a class="btn btn-group btn-success" id="display-cart-button" th:href="@{/cart}">
-            <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;<i id="number-of-items-in-cart">0</i>
+            <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;<i id="number-of-items-in-cart" th:text="${numberOfProductsInCart}">0</i>
         </a>
     </div>
 </div>

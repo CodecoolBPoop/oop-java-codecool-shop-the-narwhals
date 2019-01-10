@@ -30,7 +30,6 @@ public class OrderController extends HttpServlet {
         WebContext context = new WebContext(req,resp, servletContext);
 
         context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast()); // TODO: need to handle case of zero order
-
         engine.process("cart.html", context, resp.getWriter());
 
     }
@@ -44,6 +43,11 @@ public class OrderController extends HttpServlet {
         Product product = productDataStore.getBy(productId);
         Order order = Order.getInstance();
         order.addProduct(product);
+
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+        if (orderDataStore.find(order.getId()) == null) {
+            orderDataStore.add(order);
+        }
 
         String dataAsJson = "{\"numberOfItemsInCart\": " + order.getTotalNumberOfOrderedProducts() + "}";
 

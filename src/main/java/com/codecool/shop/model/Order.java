@@ -76,6 +76,18 @@ public class Order extends BaseModel{
         return numberOfOrderedProducts;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("id: " + this.id + "," )
+                .append("name: " + this.name + ",")
+                .append("description: " + this.description + ",")
+                .append("items: " + this.items + ",")
+                .append("total sum: " + this.totalSum + ",")
+                .append("currency: " + this.CURRENCY);
+        return builder.toString();
+    }
+
     public String seeItems() {
 
         return items.toString();

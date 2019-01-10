@@ -40,10 +40,15 @@ public class ProductController extends HttpServlet {
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
-        if(categoryIdFromUrl != null){
+        if(categoryIdFromUrl != null && supplierIdFromUrl != null) {
             context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl))));
+            context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(supplierIdFromUrl))));
+        } else if(categoryIdFromUrl != null){
+            context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl))));
+            context.setVariable("categories", productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl)));
         } else if (supplierIdFromUrl != null){
             context.setVariable("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(supplierIdFromUrl))));
+            context.setVariable("suppliers", supplierDataStore.find(Integer.parseInt(supplierIdFromUrl)));
         }
         else {
             context.setVariable("products", productDataStore.getAll());

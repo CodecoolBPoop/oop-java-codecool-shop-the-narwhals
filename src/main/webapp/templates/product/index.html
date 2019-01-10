@@ -44,9 +44,8 @@
             <div class="dropdown-menu" name="productCategory">
                 <th:block th:each="category,iterStat : ${categories}">
                     <form action="/">
-                        <button  name="category" type="submit" class="categorySelection" th:text="${category.name}"
-                                      th:value="${category.id}">Action</button>
-
+                        <button  name="category" type="submit" class="selection" th:text="${category.name}"
+                                      th:value="${category.id}">Filter</button>
                     </form>
                 </th:block>
             </div>
@@ -58,12 +57,16 @@
             <div class="dropdown-menu" name="productSupplier">
                 <th:block th:each="supplier,iterStat : ${suppliers}">
                     <form action="/">
-                        <button name="supplier" type="submit" class="categorySelection" th:text="${supplier.name}"
-                                    th:value="${supplier.id}">Action</button>
-
+                        <button name="supplier" type="submit" class="selection" th:text="${supplier.name}"
+                                    th:value="${supplier.id}">Filter</button>
                     </form>
                 </th:block>
             </div>
+        </div>
+        <div class="btn-group">
+            <form action="/">
+                <button class="btn btn-dark" type="submit" value="">Reset Filters</button>
+            </form>
         </div>
     </div>
 

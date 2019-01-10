@@ -37,7 +37,7 @@ public class OrderDaoMem implements OrderDao {
     }
 
     public Order findLast() {
-        return data.get(data.size());
+        return data.get(data.size() - 1);
     }
 
     @Override

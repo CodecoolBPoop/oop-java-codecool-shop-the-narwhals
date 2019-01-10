@@ -61,7 +61,7 @@ public class Order extends BaseModel{
         }
     }
 
-    private LineItem getLineItemByProductId(int productId) {
+    public LineItem getLineItemByProductId(int productId) {
         return items.stream()
                     .filter(item -> item.getProductId() == productId)
                     .findFirst()
@@ -71,9 +71,21 @@ public class Order extends BaseModel{
     public int getTotalNumberOfOrderedProducts() {
         int numberOfOrderedProducts = 0;
         for (int i = 0; i < items.size(); i++) {
-            numberOfOrderedProducts += items.get(i).getNumberOfLineItemProducts();
+            numberOfOrderedProducts += items.get(i).getNumberOfProducts();
         }
         return numberOfOrderedProducts;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("id: " + this.id + "," )
+                .append("name: " + this.name + ",")
+                .append("description: " + this.description + ",")
+                .append("items: " + this.items + ",")
+                .append("total sum: " + this.totalSum + ",")
+                .append("currency: " + this.CURRENCY);
+        return builder.toString();
     }
 
     public String seeItems() {

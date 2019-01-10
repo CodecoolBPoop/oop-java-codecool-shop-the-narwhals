@@ -60,3 +60,23 @@ body {
 .firstoption {
     margin-top: 80px;
 }
+
+.line-item {
+    background-color: white;
+    margin: 5px auto;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.amount-button {
+    width: 40px;
+}
+
+.amount-number {
+    width: 20px;
+    margin: auto 0px;
+}
+
+h1 a {
+    color: white;
+}

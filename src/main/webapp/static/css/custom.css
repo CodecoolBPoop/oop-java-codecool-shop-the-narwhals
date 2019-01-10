@@ -46,3 +46,8 @@ body {
 .card-text-center {
     float: initial;
 }
+
+#buttons-on-top {
+    padding-right: 50px;
+    padding-left: 50px;
+}

@@ -14,38 +14,21 @@
 </div>
 
 <div class="container">
+
     <div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Item Type
-            </button>
-            <div class="dropdown-menu" name="productCategory">
-                <th:block th:each="category,iterStat : ${categories}">
-                    <form action="/">
-                        <button  name="category" type="submit" class="selection" th:text="${category.name}"
-                                      th:value="${category.id}">Filter</button>
-                    </form>
-                </th:block>
-            </div>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Supplier
-            </button>
-            <div class="dropdown-menu" name="productSupplier">
-                <th:block th:each="supplier,iterStat : ${suppliers}">
-                    <form action="/">
-                        <button name="supplier" type="submit" class="selection" th:text="${supplier.name}"
-                                    th:value="${supplier.id}">Filter</button>
-                    </form>
-                </th:block>
-            </div>
-        </div>
-        <div class="btn-group">
-            <form action="/">
-                <button class="btn btn-dark" type="submit" value="">Reset Filters</button>
-            </form>
-        </div>
+        <form action="/">
+            <label for ="category">Categories</label>
+            <select id= "category" name="category">
+                <option value="0">Select Category</option>
+                <option th:each="category,iterStat : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+            <label for="Supplier">Suppliers</label>
+            <select id = "Supplier" name="supplier">
+                <option value="0">Select Supplier</option>
+                <option th:each="supplier,iterStat : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.name}"></option>
+            </select>
+            <input type="submit" value="Filter">
+        </form>
     </div>
 
     <div id="products" class="list-group-item d-flex flex-row flex-wrap">

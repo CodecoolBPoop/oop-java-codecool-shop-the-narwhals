@@ -5,21 +5,29 @@
     <title>Cart</title>
 </head>
 <body>
-    <div class="jumbotron text-center">Collected Items</div>
+    <div class="jumbotron text-center">
+        <h1><a href="/">Collected Items</a></h1>
+    </div>
     <div class="container">
         <div class="row line-item" th:each="lineItem : ${order.getItems()}">
-            <div class="col-md-6 col-sm-12" th:text="${lineItem.getProductName()}">
+            <div class="col-md-6 col-sm-12 d-flex align-items-center" th:text="${lineItem.getProductName()}">
                 Product Name
             </div>
-            <div class="d-inline d-flex justify-content-center flex-wrap">
-                <div class="btn btn-primary" id="decrease-button">-</div>
-                <div class="col-md-3" th:text="${lineItem.getNumberOfLineItemProducts()}">
-                    Number
+            <div class="col-md-3 d-inline d-flex justify-content-center flex-wrap text-center">
+                <div>
+                    <button class="btn btn-primary decrease-button amount-button">-</button>
                 </div>
-                <div class="btn btn-primary" id="increase-button">+</div>
+                <div class="amount-number">
+                    <p class="text-center amount-number" th:text="${lineItem.getNumberOfLineItemProducts()}">
+                        Number
+                    </p>
+                </div>
+                <div >
+                    <button class="btn btn-primary increase-button amount-button">+</button>
+                </div>
             </div>
-            <div class="col-md-3" th:text="${lineItem.getTotalPrice()}">
-                Price
+            <div class="col-md-3 d-flex align-items-center">
+                <span th:text="${lineItem.getTotalPrice()}">Price</span>
             </div>
         </div>
     </div>

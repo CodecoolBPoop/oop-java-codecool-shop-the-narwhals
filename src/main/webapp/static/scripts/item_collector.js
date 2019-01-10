@@ -1,7 +1,9 @@
 itemCollector = {
     sendToCart : function(productId) {
         let info = {"productId": productId};
-        $.post("/cart", info);
+        $.post("/cart", info, function(data) {
+            console.log(JSON.parse(data));
+        });
     },
 
     initAddButtons : function() {

@@ -68,7 +68,7 @@ public class Order extends BaseModel{
                     .orElse(null);
     }
 
-    public int getTotalNumberOfOrderedProducts(List<LineItem> items) {
+    public int getTotalNumberOfOrderedProducts() {
         int numberOfOrderedProducts = 0;
         for (int i = 0; i < items.size(); i++) {
             numberOfOrderedProducts += items.get(i).getNumberOfLineItemProducts();

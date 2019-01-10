@@ -56,18 +56,4 @@ public class ProductController extends HttpServlet {
 
         engine.process("product/index.html", context, resp.getWriter());
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("recipient", "World");
-        context.setVariable("products", productDataStore.getAll());
-        context.setVariable("categories", productCategoryDataStore.getAll());
-        engine.process("product/index.html", context, resp.getWriter());
-    }
 }

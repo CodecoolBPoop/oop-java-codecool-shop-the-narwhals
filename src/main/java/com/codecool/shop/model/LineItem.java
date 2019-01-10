@@ -4,6 +4,7 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 
 public class LineItem extends BaseModel {
     private int productId;
+    private final float UNIT_PRICE;
 
     private int numberOfProducts;
 
@@ -13,6 +14,7 @@ public class LineItem extends BaseModel {
         super(name, description);
         numberOfProducts = 1;
         this.productId = product.getId();
+        this.UNIT_PRICE = product.getDefaultPrice();
         this.totalPrice = product.getDefaultPrice();
     }
 
@@ -25,7 +27,7 @@ public class LineItem extends BaseModel {
         return productId;
     }
 
-    public int getNumberOfLineItemProducts() {
+    public int getNumberOfProducts() {
         return numberOfProducts;
     }
 
@@ -49,5 +51,9 @@ public class LineItem extends BaseModel {
 
     public float getTotalPrice() {
         return totalPrice;
+    }
+
+    public float getUNIT_PRICE() {
+        return UNIT_PRICE;
     }
 }

@@ -2,6 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="header.html :: header"></div>
+    <script th:src="@{/static/scripts/amount_setter.js}" defer></script>
     <title>Cart</title>
 </head>
 <body>
@@ -13,21 +14,26 @@
             <div class="col-md-6 col-sm-12 d-flex align-items-center" th:text="${lineItem.getProductName()}">
                 Product Name
             </div>
-            <div class="col-md-3 d-inline d-flex justify-content-center flex-wrap text-center">
+            <div class="col-md-3 d-inline d-flex justify-content-center flex-wrap text-center"
+                 th:attr="data-product-id=${lineItem.getProductId()}">
                 <div>
-                    <button class="btn btn-primary decrease-button amount-button">-</button>
+                    <button class="btn btn-primary decrease-button amount-button" data-change="-1">-</button>
                 </div>
                 <div class="amount-number">
-                    <p class="text-center amount-number" th:text="${lineItem.getNumberOfLineItemProducts()}">
+                    <p class="text-center amount-number" th:text="${lineItem.getNumberOfProducts()}">
                         Number
                     </p>
                 </div>
                 <div >
-                    <button class="btn btn-primary increase-button amount-button">+</button>
+                    <button class="btn btn-primary increase-button amount-button" data-change="1">+</button>
                 </div>
             </div>
             <div class="col-md-3 d-flex align-items-center">
-                <span th:text="${lineItem.getTotalPrice()}">Price</span>
+                <span th:text="${lineItem.getTotalPrice()}"
+                      th:attr="data-unit-price=${lineItem.getUNIT_PRICE()}"
+                      th:id="'product-' + ${lineItem.getProductId()} + '-price'">
+                    Price
+                </span>
             </div>
         </div>
     </div>

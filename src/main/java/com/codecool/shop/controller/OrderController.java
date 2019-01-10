@@ -4,6 +4,7 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
@@ -52,5 +53,28 @@ public class OrderController extends HttpServlet {
         String dataAsJson = "{\"numberOfItemsInCart\": " + order.getTotalNumberOfOrderedProducts() + "}";
 
         resp.getWriter().write(dataAsJson);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int change = Integer.parseInt(req.getParameter("change"));
+        int productId = Integer.parseInt(req.getParameter("productId"));
+
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+        Order currentOrder = orderDataStore.findLast();
+
+        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
+        Product currentProduct = productDataStore.find(productId);
+
+        LineItem currentLineItem = currentOrder.getLineItemByProductId(productId);
+
+        if (change > 0) {
+            currentOrder.addProduct(currentProduct);
+        } else if (change < 0) {
+            currentOrder.removeProduct(currentProduct);
+        }
+
+        String dataToSend = "{\"numberOfProducts\": " + currentLineItem.getNumberOfProducts() + "}";
+        resp.getWriter().write(dataToSend);
     }
 }

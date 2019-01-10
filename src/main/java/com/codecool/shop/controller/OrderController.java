@@ -45,6 +45,8 @@ public class OrderController extends HttpServlet {
         Order order = Order.getInstance();
         order.addProduct(product);
 
-        System.out.println(order.seeItems());
+        String dataAsJson = "{\"numberOfItemsInCart\": " + order.getTotalNumberOfOrderedProducts() + "}";
+
+        resp.getWriter().write(dataAsJson);
     }
 }

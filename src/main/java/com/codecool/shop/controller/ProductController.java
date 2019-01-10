@@ -40,18 +40,17 @@ public class ProductController extends HttpServlet {
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
 
-        if(categoryIdFromUrl != null && supplierIdFromUrl != null) {
+        if (categoryIdFromUrl != null && supplierIdFromUrl != null) {
             context.setVariable("products", productDataStore.getByComplex(Integer.parseInt(categoryIdFromUrl), Integer.parseInt(supplierIdFromUrl)));
-        } else if(categoryIdFromUrl != null){
+        } else if (categoryIdFromUrl != null) {
             context.setVariable("products",
                     productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl))));
             context.setVariable("categories", productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl)));
-        } else if (supplierIdFromUrl != null){
+        } else if (supplierIdFromUrl != null) {
             context.setVariable("products",
                     productDataStore.getBy(supplierDataStore.find(Integer.parseInt(supplierIdFromUrl))));
             context.setVariable("suppliers", supplierDataStore.find(Integer.parseInt(supplierIdFromUrl)));
-        }
-        else {
+        } else {
             context.setVariable("products", productDataStore.getAll());
         }
 
@@ -60,6 +59,7 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 

@@ -2,50 +2,76 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="header.html :: header"></div>
-    <title>Codecool Shop</title>
+    <title>Collectors Shop</title>
     <script th:src="@{/static/scripts/item_collector.js}" defer></script>
+    <script th:src="@{/static/scripts/products_sorter.js}" defer></script>
     <script th:src="@{/static/scripts/main.js}" defer></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <h1>The Collector's Shop</h1>
 </div>
 
-<div class="container">
-
+<div class="container justify-content-between d-flex" id="buttons-on-top">
     <div>
         <form action="/">
-            <label for ="category">Categories</label>
-            <select id= "category" name="category">
+        <div class="btn-group">
+            <select type="button" name="category" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+
+
+            <div class="dropdown-menu">
                 <option value="0">Select Category</option>
-                <option th:each="category,iterStat : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                <option class="dropdown-item category" th:attr="data-category-name=${cat.name}"
+                   th:each="cat,iterStat : ${categories}"
+                   th:text="${cat.name}" th:value="${cat.id}">Category</option>
+            </div>
             </select>
-            <label for="Supplier">Suppliers</label>
-            <select id = "Supplier" name="supplier">
+        </div>
+        <div class="btn-group">
+            <select type="button" name="supplier" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+
+
+            <div class="dropdown-menu">
                 <option value="0">Select Supplier</option>
-                <option th:each="supplier,iterStat : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.name}"></option>
+                <option class="dropdown-item supplier" th:attr="data-supplier-name=${sup.name}"
+                   th:each="sup,iterStat : ${suppliers}"
+                   th:text="${sup.name}" th:value="${sup.id}">Supplier</option>
+            </div>
             </select>
-            <input type="submit" value="Filter">
+        </div>
+            <input type="submit" class="btn btn-group btn-danger" value="Filter">
+
         </form>
     </div>
+    <div>
+        <button class="btn btn-group btn-success" id="display-cart-button">
+            <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;<i id="number-of-items-in-cart">0</i>
+        </button>
+    </div>
+</div>
 
-    <div id="products" class="list-group-item d-flex flex-row flex-wrap">
-
-        <div class="item col-sm-4" th:each="prod,iterStat : ${products}">
-                <img class="col list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                    <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
-                    <div class="row">
-                        <div class="col">
-                            <p class="lead" th:text="${prod.getPrice()}">100 Credits</p>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-success add-to-cart" th:attr="data-product-id=${prod.getId()}">Add to cart</a>
-                        </div>
-                    </div>
+<div id="products" class="container">
+    <div class="card-text-center d-flex justify-content-center flex-wrap">
+        <div class="card border-dark" th:each="prod,iterStat : ${products}">
+            <img class="card-img-top" src="http://placehold.it/400x250/000/fff"
+                 th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="Card image cap"/>
+            <div class="card-header">
+                <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+            </div>
+            <div class="card-header">
+                <p class="card-text" th:text="${prod.description}">Product description... </p>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <p class="lead" th:text="${prod.getPrice()}">100 Credits</p>
+                </div>
+                <div class="card-text">
+                    <a class="btn btn-primary add-to-cart" th:attr="data-product-id=${prod.getId()}">Add to cart</a>
                 </div>
             </div>
         </div>

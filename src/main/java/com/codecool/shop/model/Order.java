@@ -7,11 +7,15 @@ import java.util.List;
 
 public class Order extends BaseModel{
     private static Order instance = null;
-    private List<LineItem> items = new ArrayList<>();
-    private int totalSum;
 
+    private List<LineItem> items = new ArrayList<>();
+
+    private int totalSum;
     private final String CURRENCY = "Credits";
+
+
     private Currency defaultCurrency;
+
 
     public Order(String orderName, String orderDescription) {
         super(orderName, orderDescription);
@@ -25,6 +29,10 @@ public class Order extends BaseModel{
             instance = new Order(orderName, description);
         }
         return instance;
+    }
+
+    public List<LineItem> getItems() {
+        return items;
     }
 
     public void setDefaultCurrency(Currency defaultCurrency) {
@@ -60,7 +68,16 @@ public class Order extends BaseModel{
                     .orElse(null);
     }
 
+    public int getTotalNumberOfOrderedProducts() {
+        int numberOfOrderedProducts = 0;
+        for (int i = 0; i < items.size(); i++) {
+            numberOfOrderedProducts += items.get(i).getNumberOfLineItemProducts();
+        }
+        return numberOfOrderedProducts;
+    }
+
     public String seeItems() {
+
         return items.toString();
     }
 }

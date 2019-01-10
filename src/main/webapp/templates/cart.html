@@ -5,7 +5,25 @@
     <title>Cart</title>
 </head>
 <body>
-    <p>Placeholder text</p>
-    <div th:text="${cartItems}">Items</div>
+    <div class="jumbotron text-center">Collected Items</div>
+    <div class="container">
+        <div class="row line-item" th:each="lineItem : ${order.getItems()}">
+            <div class="col-md-6 col-sm-12" th:text="${lineItem.getProductName()}">
+                Product Name
+            </div>
+            <div class="d-inline d-flex justify-content-center flex-wrap">
+                <div class="btn btn-primary" id="decrease-button">-</div>
+                <div class="col-md-3" th:text="${lineItem.getNumberOfLineItemProducts()}">
+                    Number
+                </div>
+                <div class="btn btn-primary" id="increase-button">+</div>
+            </div>
+            <div class="col-md-3" th:text="${lineItem.getTotalPrice()}">
+                Price
+            </div>
+        </div>
+    </div>
+
+
 </body>
 </html>

@@ -38,21 +38,31 @@
 <div class="container">
     <div>
         <div class="btn-group">
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Item Type
             </button>
-            <div class="dropdown-menu" >
-                <a class="dropdown-item" th:each="cat,iterStat : ${categories}"
-                   href="#" th:text="${cat.name}">Category Title</a>
+            <div class="dropdown-menu" name="productCategory">
+                <th:block th:each="category,iterStat : ${categories}">
+                    <form action="/">
+                        <button  name="category" type="submit" class="categorySelection" th:text="${category.name}"
+                                      th:value="${category.id}">Action</button>
+
+                    </form>
+                </th:block>
             </div>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Supplier
             </button>
-            <div class="dropdown-menu" >
-                <a class="dropdown-item" th:each="sup,iterStat : ${suppliers}"
-                   href="#" th:text="${sup.name}">Category Title</a>
+            <div class="dropdown-menu" name="productSupplier">
+                <th:block th:each="supplier,iterStat : ${suppliers}">
+                    <form action="/">
+                        <button name="supplier" type="submit" class="categorySelection" th:text="${supplier.name}"
+                                    th:value="${supplier.id}">Action</button>
+
+                    </form>
+                </th:block>
             </div>
         </div>
     </div>

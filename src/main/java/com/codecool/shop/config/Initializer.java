@@ -32,7 +32,7 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(dcverse);
         Supplier hogwarts = new Supplier("Hogwarts", "");
         supplierDataStore.add(hogwarts);
-        Supplier sw = new Supplier("Galaxy far, far away", "");
+        Supplier sw = new Supplier("Faraway galaxy", "");
         supplierDataStore.add(sw);
 
         //setting up a new product category
@@ -48,7 +48,7 @@ public class Initializer implements ServletContextListener {
         ProductCategory pet = new ProductCategory("Pet", "", "");
         productCategoryDataStore.add(pet);
 
-        ProductCategory collectorItem = new ProductCategory("Collectors' Item", "", "");
+        ProductCategory collectorItem = new ProductCategory("Collectors' Items", "", "");
         productCategoryDataStore.add(collectorItem);
 
         //setting up products and printing it

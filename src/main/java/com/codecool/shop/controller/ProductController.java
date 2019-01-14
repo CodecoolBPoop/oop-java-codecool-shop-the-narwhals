@@ -36,8 +36,8 @@ public class ProductController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         //context.setVariables(params);
 
-        String categoryIdFromUrl = req.getParameter("category");
-        String supplierIdFromUrl = req.getParameter("supplier");
+        int categoryIdFromUrl = req.getParameter("category") == null ? 0 : Integer.parseInt(req.getParameter("category"));
+        int supplierIdFromUrl = req.getParameter("supplier") == null ? 0 : Integer.parseInt(req.getParameter("supplier"));
 
         context.setVariable("recipient", "World");
         context.setVariable("categories", productCategoryDataStore.getAll());
@@ -51,16 +51,18 @@ public class ProductController extends HttpServlet {
 
         }
 
-        if (categoryIdFromUrl != null && supplierIdFromUrl != null) {
-            context.setVariable("products", productDataStore.getByComplex(Integer.parseInt(categoryIdFromUrl), Integer.parseInt(supplierIdFromUrl)));
-        } else if (categoryIdFromUrl != null) {
+        if (categoryIdFromUrl != 0 && supplierIdFromUrl != 0) {
+            context.setVariable("products", productDataStore.getByComplex(categoryIdFromUrl, supplierIdFromUrl));
+            context.setVariable("selectedCategory", productCategoryDataStore.find(categoryIdFromUrl));
+            context.setVariable("selectedSupplier", supplierDataStore.find(supplierIdFromUrl));
+        } else if (categoryIdFromUrl != 0) {
             context.setVariable("products",
-                    productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl))));
-            context.setVariable("categories", productCategoryDataStore.find(Integer.parseInt(categoryIdFromUrl)));
-        } else if (supplierIdFromUrl != null) {
+                    productDataStore.getBy(productCategoryDataStore.find(categoryIdFromUrl)));
+            context.setVariable("selectedCategory", productCategoryDataStore.find(categoryIdFromUrl));
+        } else if (supplierIdFromUrl != 0) {
             context.setVariable("products",
-                    productDataStore.getBy(supplierDataStore.find(Integer.parseInt(supplierIdFromUrl))));
-            context.setVariable("suppliers", supplierDataStore.find(Integer.parseInt(supplierIdFromUrl)));
+                    productDataStore.getBy(supplierDataStore.find(supplierIdFromUrl)));
+            context.setVariable("selectedSupplier", supplierDataStore.find(supplierIdFromUrl));
         } else {
             context.setVariable("products", productDataStore.getAll());
         }

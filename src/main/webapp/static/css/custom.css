@@ -61,6 +61,10 @@ body {
     margin-top: 80px;
 }
 
+.dropdown-item:hover {
+    cursor: pointer;
+}
+
 .line-item {
     background-color: white;
     margin: 5px auto;

@@ -16,39 +16,43 @@
 </div>
 
 <div class="container justify-content-between d-flex" id="buttons-on-top">
-    <div class="dropdown" id="category-filter-dropdown">
-        <button class="btn btn-primary dropdown-toggle" id="category-filter-button"
-                type="button" data-toggle="dropdown"
-                th:attr="data-selected-id=${selectedCategory ? selectedCategory.getId() : 0}"
-                th:text="${selectedCategory ? selectedCategory.getName() : 'Category'}">
-            Category
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item category-dropdown-item" data-filter-type="category"
-               th:each="cat : ${categories}" th:text="${cat.getName()}"
-               th:attr="data-id=${cat.getId()}">
-                Category
-            </a>
-        </div>
-    </div>
-    <div class="dropdown" id="supplier-filter-dropdown">
-        <button class="btn btn-primary dropdown-toggle" id="supplier-filter-button"
-                type="button" data-toggle="dropdown"
-                th:attr="data-selected-id=${selectedSupplier ? selectedSupplier.getId() : 0}"
-                th:text="${selectedSupplier ? selectedSupplier.getName() : 'Supplier'}">
-            Supplier
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item supplier-dropdown-item" data-filter-type="supplier"
-               th:each="sup : ${suppliers}" th:text="${sup.getName()}"
-               th:attr="data-id=${sup.getId()}">
-                Supplier
-            </a>
-        </div>
-    </div>
     <div>
-        <button class="btn btn-danger" id="filter-button">Filter</button>
-        <a th:href="@{/}" class="btn btn-warning" id="clear-filter-button">Clear filters</a>
+        <div class="btn-group">
+            <div class="dropdown" id="category-filter-dropdown">
+                <button class="btn btn-primary dropdown-toggle" id="category-filter-button"
+                        type="button" data-toggle="dropdown"
+                        th:attr="data-selected-id=${selectedCategory ? selectedCategory.getId() : 0}"
+                        th:text="${selectedCategory ? selectedCategory.getName() : 'Category'}">
+                    Category
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item category-dropdown-item" data-filter-type="category"
+                       th:each="cat : ${categories}" th:text="${cat.getName()}"
+                       th:attr="data-id=${cat.getId()}">
+                        Category
+                    </a>
+                </div>
+            </div>
+            <div class="dropdown" id="supplier-filter-dropdown">
+                <button class="btn btn-primary dropdown-toggle" id="supplier-filter-button"
+                        type="button" data-toggle="dropdown"
+                        th:attr="data-selected-id=${selectedSupplier ? selectedSupplier.getId() : 0}"
+                        th:text="${selectedSupplier ? selectedSupplier.getName() : 'Supplier'}">
+                    Supplier
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item supplier-dropdown-item" data-filter-type="supplier"
+                       th:each="sup : ${suppliers}" th:text="${sup.getName()}"
+                       th:attr="data-id=${sup.getId()}">
+                        Supplier
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-danger" id="filter-button">Filter</button>
+            <a th:href="@{/}" class="btn btn-warning" id="clear-filter-button">Clear filters</a>
+        </div>
     </div>
     <div>
         <a class="btn btn-group btn-success" id="display-cart-button" th:href="@{/cart}">

@@ -2,8 +2,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="header.html :: header"></div>
-    <title>Collectors Shop</title>
+    <title>Collector's Shop</title>
     <script th:src="@{/static/scripts/item_collector.js}" defer></script>
+    <script th:src="@{/static/scripts/filter.js}" defer></script>
     <script th:src="@{/static/scripts/main.js}" defer></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
@@ -16,36 +17,42 @@
 
 <div class="container justify-content-between d-flex" id="buttons-on-top">
     <div>
-        <form action="/">
         <div class="btn-group">
-            <select type="button" name="category" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-
-
-            <div class="dropdown-menu">
-                <option value="0">Select Category</option>
-                <option class="dropdown-item category" th:attr="data-category-name=${cat.name}"
-                   th:each="cat,iterStat : ${categories}"
-                   th:text="${cat.name}" th:value="${cat.id}">Category</option>
+            <div class="dropdown" id="category-filter-dropdown">
+                <button class="btn btn-primary dropdown-toggle" id="category-filter-button"
+                        type="button" data-toggle="dropdown"
+                        th:attr="data-selected-id=${selectedCategory ? selectedCategory.getId() : 0}"
+                        th:text="${selectedCategory ? selectedCategory.getName() : 'Category'}">
+                    Category
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item category-dropdown-item" data-filter-type="category"
+                       th:each="cat : ${categories}" th:text="${cat.getName()}"
+                       th:attr="data-id=${cat.getId()}">
+                        Category
+                    </a>
+                </div>
             </div>
-            </select>
+            <div class="dropdown" id="supplier-filter-dropdown">
+                <button class="btn btn-primary dropdown-toggle" id="supplier-filter-button"
+                        type="button" data-toggle="dropdown"
+                        th:attr="data-selected-id=${selectedSupplier ? selectedSupplier.getId() : 0}"
+                        th:text="${selectedSupplier ? selectedSupplier.getName() : 'Supplier'}">
+                    Supplier
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item supplier-dropdown-item" data-filter-type="supplier"
+                       th:each="sup : ${suppliers}" th:text="${sup.getName()}"
+                       th:attr="data-id=${sup.getId()}">
+                        Supplier
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="btn-group">
-            <select type="button" name="supplier" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-
-
-            <div class="dropdown-menu">
-                <option value="0">Select Supplier</option>
-                <option class="dropdown-item supplier" th:attr="data-supplier-name=${sup.name}"
-                   th:each="sup,iterStat : ${suppliers}"
-                   th:text="${sup.name}" th:value="${sup.id}">Supplier</option>
-            </div>
-            </select>
+            <button class="btn btn-danger" id="filter-button">Filter</button>
+            <a th:href="@{/}" class="btn btn-warning" id="clear-filter-button">Clear filters</a>
         </div>
-            <input type="submit" class="btn btn-group btn-danger" value="Filter">
-
-        </form>
     </div>
     <div>
         <a class="btn btn-group btn-success" id="display-cart-button" th:href="@{/cart}">
@@ -55,22 +62,24 @@
 </div>
 
 <div id="products" class="container">
-    <div class="card-text-center d-flex justify-content-center flex-wrap">
-        <div class="card border-dark" th:each="prod,iterStat : ${products}">
-            <img class="card-img-top" src="http://placehold.it/400x250/000/fff"
-                 th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="Card image cap"/>
-            <div class="card-header">
-                <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-            </div>
-            <div class="card-header">
-                <p class="card-text" th:text="${prod.description}">Product description... </p>
-            </div>
-            <div class="card-body">
-                <div class="card-text">
-                    <p class="lead" th:text="${prod.getPrice()}">100 Credits</p>
+    <div class="row">
+        <div class="col col-sm-6 col-md-4 col-lg-3" th:each="prod,iterStat : ${products}">
+            <div class="card border-dark">
+                <img class="card-img-top img-fluid" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="Card image cap"/>
+                <div class="card-header">
+                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                 </div>
-                <div class="card-text">
-                    <a class="btn btn-primary add-to-cart" th:attr="data-product-id=${prod.getId()}">Add to cart</a>
+                <div class="card-header">
+                    <p class="card-text" th:text="${prod.description}">Product description... </p>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <p class="lead" th:text="${prod.getPrice()}">100 Credits</p>
+                    </div>
+                    <div class="card-text">
+                        <a class="btn btn-primary add-to-cart" th:attr="data-product-id=${prod.getId()}">Add to cart</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="header.html :: header"></div>
-    <title>Collectors Shop</title>
+    <title>Collector's Shop</title>
     <script th:src="@{/static/scripts/item_collector.js}" defer></script>
     <script th:src="@{/static/scripts/main.js}" defer></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
@@ -55,22 +55,24 @@
 </div>
 
 <div id="products" class="container">
-    <div class="card-text-center d-flex justify-content-center flex-wrap">
-        <div class="card border-dark" th:each="prod,iterStat : ${products}">
-            <img class="card-img-top" src="http://placehold.it/400x250/000/fff"
-                 th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="Card image cap"/>
-            <div class="card-header">
-                <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-            </div>
-            <div class="card-header">
-                <p class="card-text" th:text="${prod.description}">Product description... </p>
-            </div>
-            <div class="card-body">
-                <div class="card-text">
-                    <p class="lead" th:text="${prod.getPrice()}">100 Credits</p>
+    <div class="row">
+        <div class="col col-sm-6 col-md-4 col-lg-3" th:each="prod,iterStat : ${products}">
+            <div class="card border-dark">
+                <img class="card-img-top" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="Card image cap"/>
+                <div class="card-header">
+                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                 </div>
-                <div class="card-text">
-                    <a class="btn btn-primary add-to-cart" th:attr="data-product-id=${prod.getId()}">Add to cart</a>
+                <div class="card-header">
+                    <p class="card-text" th:text="${prod.description}">Product description... </p>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <p class="lead" th:text="${prod.getPrice()}">100 Credits</p>
+                    </div>
+                    <div class="card-text">
+                        <a class="btn btn-primary add-to-cart" th:attr="data-product-id=${prod.getId()}">Add to cart</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ public class OrderController extends HttpServlet {
         WebContext context = new WebContext(req,resp, servletContext);
 
         try {
-            context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast()); // TODO: need to handle case of zero order
+            context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast());
             engine.process("cart.html", context, resp.getWriter());
         }
         catch (IndexOutOfBoundsException e){

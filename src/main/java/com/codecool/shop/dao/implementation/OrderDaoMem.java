@@ -36,7 +36,7 @@ public class OrderDaoMem implements OrderDao {
         return null;
     }
 
-    public Order findLast() {
+    public Order findLast() throws IndexOutOfBoundsException {
         return data.get(data.size() - 1);
     }
 

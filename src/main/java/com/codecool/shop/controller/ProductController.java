@@ -48,7 +48,7 @@ public class ProductController extends HttpServlet {
             context.setVariable("numberOfProductsInCart", currentOrder.getTotalNumberOfOrderedProducts());
         }
         catch (IndexOutOfBoundsException e) {
-
+            context.setVariable("numberOfProductsInCart", 0);
         }
 
         if (categoryIdFromUrl != 0 && supplierIdFromUrl != 0) {

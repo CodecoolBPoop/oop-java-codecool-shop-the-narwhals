@@ -30,15 +30,19 @@ public class OrderController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(servletContext);
         WebContext context = new WebContext(req,resp, servletContext);
 
-        context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast()); // TODO: need to handle case of zero order
-        engine.process("cart.html", context, resp.getWriter());
+        try {
+            context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast());
+            engine.process("cart.html", context, resp.getWriter());
+        }
+        catch (IndexOutOfBoundsException e){
+            resp.sendRedirect("/");
+        }
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int productId =  Integer.parseInt(req.getParameter("productId"));
-        System.out.println(productId);
 
         ProductDaoMem productDataStore = ProductDaoMem.getInstance();
         Product product = productDataStore.getBy(productId);

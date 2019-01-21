@@ -34,7 +34,7 @@ public class OrderController extends HttpServlet {
             context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast()); // TODO: need to handle case of zero order
             engine.process("cart.html", context, resp.getWriter());
         }
-        catch (ArrayIndexOutOfBoundsException e){
+        catch (IndexOutOfBoundsException e){
             resp.sendRedirect("/");
         }
 

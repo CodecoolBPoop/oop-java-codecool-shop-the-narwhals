@@ -1,4 +1,4 @@
-package com.codecool.shop.util;
+package com.codecool.shop.personal;
 
 public class Address {
     private String address;

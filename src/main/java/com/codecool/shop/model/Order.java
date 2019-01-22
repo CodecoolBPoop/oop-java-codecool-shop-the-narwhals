@@ -76,13 +76,8 @@ public class Order extends BaseModel{
         return numberOfOrderedProducts;
     }
 
-    public float getTotalPrice(){
-        float sum = 0;
-        for (LineItem item :
-                items) {
-            sum += item.getTotalPrice();
-        }
-        return sum;
+    public float getTotalSum(){
+        return totalSum;
     }
 
     @Override

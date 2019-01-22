@@ -58,7 +58,6 @@ public class ProductDaoJDBC implements ProductDao {
                 Supplier supplier = supplierDataStore.find(supplierId);
 
                 Product product = new Product(name, defaultPrice, description, currencyString, productCategory, supplier);
-                System.out.println(resultList);
                 resultList.add(product);
             }
 

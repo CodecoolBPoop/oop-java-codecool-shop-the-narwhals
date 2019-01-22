@@ -59,5 +59,15 @@
             <artifactId>thymeleaf</artifactId>
             <version>3.0.9.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20171018</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
+        </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,8 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -35,23 +37,37 @@ public class ProductDaoJDBC implements ProductDao {
 
         List<Product> resultList = new ArrayList<>();
 
+
         try(Connection connection = ShopDBCreator.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
         ) {
+
             while (resultSet.next()) {
-                Product product = new Product(resultSet.getString("name"),
-                            resultSet.getFloat("default_price"),
-                            resultSet.getString("currency_string"),
-                            resultSet.getString("description"),
-                        resultSet.getInt("product_category_id"),
-                        resultSet.getInt("supplier_id")
-                );
+                String name = resultSet.getString("name");
+                Float defaultPrice = resultSet.getFloat("default_price");
+                String currencyString = resultSet.getString("currency_string");
+                String description = resultSet.getString("description");
+                int productCategoryId = resultSet.getInt("product_category_id");
+                int supplierId = resultSet.getInt("supplier_id");
+
+                ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+                SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+
+                ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
+                Supplier supplier = supplierDataStore.find(supplierId);
+
+                Product product = new Product(name, defaultPrice, description, currencyString, productCategory, supplier);
+                System.out.println(resultList);
+                resultList.add(product);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return resultList;
+
     }
 
     @Override

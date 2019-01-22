@@ -52,9 +52,15 @@ body {
     padding-left: 50px;
 }
 
-.panel-body {
+.footer-body {
     color: floralwhite;
     text-align: center;
+}
+
+#footer {
+    background-color: darkblue;
+    border: none;
+    margin: 15px auto;
 }
 
 .firstoption {

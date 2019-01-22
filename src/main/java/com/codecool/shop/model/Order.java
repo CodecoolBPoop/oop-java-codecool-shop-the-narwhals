@@ -76,6 +76,15 @@ public class Order extends BaseModel{
         return numberOfOrderedProducts;
     }
 
+    public float getTotalPrice(){
+        float sum = 0;
+        for (LineItem item :
+                items) {
+            sum += item.getTotalPrice();
+        }
+        return sum;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

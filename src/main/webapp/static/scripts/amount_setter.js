@@ -5,8 +5,22 @@ amountSetter = {
             rowToDelete.parentNode.removeChild(rowToDelete);
         } else {
             numberContainer.innerText = number;
-            priceContainer.innerText = parseFloat(priceContainer.dataset.unitPrice) * number;
+            let unitPrice = parseFloat(priceContainer.dataset.unitPrice);
+            priceContainer.innerText = Number(unitPrice * number).toFixed(2);
         }
+
+        amountSetter.setOrderTotal();
+    },
+
+    setOrderTotal: function () {
+        let sum = 0;
+        let priceElements = document.querySelectorAll(".lineitem-price");
+        for (let element of priceElements) {
+            sum += parseFloat(element.innerText);
+        }
+
+        let totalPriceContainer = document.querySelector("#order-total-span");
+        totalPriceContainer.innerText = Number(sum).toFixed(2);
     },
 
     handleClick: function (button) {
@@ -26,7 +40,8 @@ amountSetter = {
                 amountSetter.handleChange(jsonData["numberOfProducts"], numberContainer, priceContainer)
             }
         })
-    },
+    }
+    ,
 
     initAmountButtons: function () {
         let amountButtons = document.querySelectorAll(".amount-button");
@@ -36,6 +51,7 @@ amountSetter = {
             })
         }
     }
-};
+}
+;
 
 amountSetter.initAmountButtons();

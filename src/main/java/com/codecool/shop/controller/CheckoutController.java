@@ -1,6 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.personal.Address;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -20,5 +23,30 @@ public class CheckoutController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         engine.process("checkout.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String phoneNumber = req.getParameter("phoneNumber");
+        String billingAddress = req.getParameter("billingAddress");
+        String billingCity = req.getParameter("billingCity");
+        String billingCountry = req.getParameter("billingCountry");
+        String billingZip = req.getParameter("billingZip");
+        String shippingAddress = req.getParameter("shippingAddress");
+        String shippingCity = req.getParameter("shippingCity");
+        String shippingCountry = req.getParameter("shippingCountry");
+        String shippingZip = req.getParameter("shippingZip");
+
+        Address billingAddressObj = new Address(billingAddress, billingCity, billingCountry, billingZip);
+        Address shippingAddressObj = new Address(shippingAddress, shippingCity, shippingCountry, shippingZip);
+
+        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+        Order order = orderDataStore.findLast();
+
+        order.addContactInfo(name, email, phoneNumber, billingAddressObj, shippingAddressObj);
+
+        resp.sendRedirect("/payment");
     }
 }

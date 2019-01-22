@@ -14,16 +14,16 @@
             <form action="" method="post" id="checkout-form">
                 <div class="form-group">
                     <label for="name-input">Name</label>
-                    <input type="text" class="form-control" id="name-input" placeholder="Anthony Stark Jr." required>
+                    <input name="name" type="text" class="form-control" id="name-input" placeholder="Anthony Stark Jr." required>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="email-input">Email</label>
-                        <input type="email" class="form-control" id="email-input" placeholder="you@example.com" required>
+                        <input name="email" type="email" class="form-control" id="email-input" placeholder="you@example.com" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="phone-input">Phone number</label>
-                        <input type="text" class="form-control" id="phone-input" placeholder="+36 90 123 4567" required>
+                        <input name="phoneNumber" type="text" class="form-control" id="phone-input" placeholder="+36 90 123 4567" required>
                     </div>
                 </div>
                 <div>
@@ -31,20 +31,20 @@
                 </div>
                 <div class="form-group">
                     <label for="billing-address-input">Address</label>
-                    <input type="text" class="form-control" id="billing-address-input" placeholder="23 Downing Street">
+                    <input name="billingAddress" type="text" class="form-control" id="billing-address-input" placeholder="23 Downing Street">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-5">
                         <label class="d-block" for="billing-address-city-input">City</label>
-                        <input type="text" class="form-control" id="billing-address-city-input" placeholder="London">
+                        <input name="billingCity" type="text" class="form-control" id="billing-address-city-input" placeholder="London">
                     </div>
                     <div class="form-group col-md-4">
                         <label class="d-block" for="billing-address-country-input">Country</label>
-                        <input type="text" class="form-control" id="billing-address-country-input" placeholder="Guatemala">
+                        <input name="billingCountry" type="text" class="form-control" id="billing-address-country-input" placeholder="Guatemala">
                     </div>
                     <div class="form-group col-md-3">
                         <label class="d-block" for="billing-address-zip-input">Zip code</label>
-                        <input type="text" class="form-control" id="billing-address-zip-input" placeholder="H-1223">
+                        <input name="billingZip" type="text" class="form-control" id="billing-address-zip-input" placeholder="H-1223">
                     </div>
                 </div>
                 <div>
@@ -52,25 +52,25 @@
                 </div>
                 <div class="form-group">
                     <label class="d-block" for="shipping-address-input">Address</label>
-                    <input type="text" class="form-control" id="shipping-address-input" placeholder="23 Downing Street" required>
+                    <input name="shippingAddress" type="text" class="form-control" id="shipping-address-input" placeholder="23 Downing Street" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-5">
                         <label class="d-block" for="shipping-address-city-input">City</label>
-                        <input type="text" class="form-control" id="shipping-address-city-input" placeholder="London" required>
+                        <input name="shippingCity" type="text" class="form-control" id="shipping-address-city-input" placeholder="London" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label class="d-block" for="shipping-address-country-input">Country</label>
-                        <input type="text" class="form-control" id="shipping-address-country-input" placeholder="Guatemala" required>
+                        <input name="shippingCountry" type="text" class="form-control" id="shipping-address-country-input" placeholder="Guatemala" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label class="d-block" for="shipping-address-zip-input">Zip code</label>
-                        <input type="text" class="form-control" id="shipping-address-zip-input" placeholder="H-1223" required>
+                        <input name="shippingZip" type="text" class="form-control" id="shipping-address-zip-input" placeholder="H-1223" required>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between" id="checkout-form-buttons">
                     <a class="btn btn-info" type="button" th:href="@{/cart}">Back to cart</a>
-                    <button class="btn btn-primary" id="send-checkout-data-button">Send</button>
+                    <button class="btn btn-success" type="submit" id="send-checkout-data-button">Proceed to Payment</button>
                 </div>
             </form>
         </div>

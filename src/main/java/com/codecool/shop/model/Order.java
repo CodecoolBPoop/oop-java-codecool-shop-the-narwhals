@@ -1,25 +1,22 @@
 package com.codecool.shop.model;
 
 
+import com.codecool.shop.personal.Address;
+import com.codecool.shop.personal.ContactInfo;
+
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 public class Order extends BaseModel{
     private static Order instance = null;
 
     private List<LineItem> items = new ArrayList<>();
-
     private int totalSum;
     private final String CURRENCY = "Credits";
-
-
-    private Currency defaultCurrency;
-
+    private ContactInfo contactInfo;
 
     public Order(String orderName, String orderDescription) {
         super(orderName, orderDescription);
-//        setDefaultCurrency(Currency.getInstance(CURRENCY));
     }
 
     public static Order getInstance() {
@@ -33,10 +30,6 @@ public class Order extends BaseModel{
 
     public List<LineItem> getItems() {
         return items;
-    }
-
-    public void setDefaultCurrency(Currency defaultCurrency) {
-        this.defaultCurrency = defaultCurrency;
     }
 
     public void addProduct(Product product) {
@@ -92,8 +85,7 @@ public class Order extends BaseModel{
         return builder.toString();
     }
 
-    public String seeItems() {
-
-        return items.toString();
+    public void addContactInfo(String name, String email, String phoneNumber, Address billingAddress, Address shippingAddress) {
+        this.contactInfo = new ContactInfo(name, email, phoneNumber, billingAddress, shippingAddress);
     }
 }

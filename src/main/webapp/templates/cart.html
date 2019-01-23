@@ -28,12 +28,25 @@
                     <button class="btn btn-primary increase-button amount-button" data-change="1">+</button>
                 </div>
             </div>
-            <div class="col-md-3 d-flex align-items-center">
-                <span th:text="${lineItem.getTotalPrice()}"
+            <div class="col-md-3 d-flex align-items-center justify-content-end">
+                <span class="lineitem-price" th:text="${#numbers.formatDecimal(lineItem.getTotalPrice(), 0, 2)}"
                       th:attr="data-unit-price=${lineItem.getUNIT_PRICE()}"
                       th:id="'product-' + ${lineItem.getProductId()} + '-price'">
                     Price
                 </span>
+                &nbsp;Credits
+            </div>
+        </div>
+        <div class="d-flex flex-row-reverse">
+            <div class="d-flex flex-column">
+                <div class="p-2">
+                    Order total:&nbsp;
+                    <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
+                    Credits
+                </div>
+                <div class="p-2">
+                    <a class="btn btn-success" th:href="@{/checkout}">Checkout</a>
+                </div>
             </div>
         </div>
     </div>

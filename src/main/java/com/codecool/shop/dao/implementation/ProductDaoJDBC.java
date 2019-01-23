@@ -37,7 +37,35 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public Product find(int id) {
-        return null;
+        String query = "SELECT * FROM product " +
+                "WHERE id = " + id + ";";
+
+        try(Connection connection = ShopDBCreator.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)
+        ) {
+            resultSet.next();
+            int productId = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            Float defaultPrice = resultSet.getFloat("default_price");
+            String currencyString = resultSet.getString("currency_string");
+            String description = resultSet.getString("description");
+            int productCategoryId = resultSet.getInt("product_category_id");
+            int supplierId = resultSet.getInt("supplier_id");
+
+            ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+            SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
+
+            ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
+            Supplier supplier = supplierDataStore.find(supplierId);
+
+            Product product = new Product(productId,    name, defaultPrice, description, currencyString, productCategory, supplier);
+            return product;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

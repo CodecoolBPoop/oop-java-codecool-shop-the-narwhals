@@ -2,7 +2,9 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
@@ -44,8 +46,9 @@ public class OrderController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int productId =  Integer.parseInt(req.getParameter("productId"));
 
-        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
-        Product product = productDataStore.getBy(productId);
+        ProductDaoJDBC productDataStore = ProductDaoJDBC.getInstance();
+//        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
+        Product product = productDataStore.find(productId);
         Order order = Order.getInstance();
         order.addProduct(product);
 

@@ -48,7 +48,7 @@ public class Initializer implements ServletContextListener {
 
 
         //setting up products and printing it
-        productDataStore.add(new Product("Captain America's Shield", 49.9f, "Credits", "Made from the strongest metal on earth, this one-of-a-kind shield will keep you safe against all manner of enemies. Also useful for bashing in arc reactors..", weapon, earth616));
+   /*     productDataStore.add(new Product("Captain America's Shield", 49.9f, "Credits", "Made from the strongest metal on earth, this one-of-a-kind shield will keep you safe against all manner of enemies. Also useful for bashing in arc reactors..", weapon, earth616));
         productDataStore.add(new Product("Sauron's Ring", 49.9f, "Credits", "Description here", weapon, middleEarth));
         productDataStore.add(new Product("Fury's Lightsaber", 49.9f, "Credits", "Description here", weapon, sw));
         productDataStore.add(new Product("Gandalf the White's Staff", 49.9f, "Credits", "Description here", weapon, middleEarth));
@@ -76,8 +76,7 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Bane's Mask", 49.9f, "Credits", "Description here", collectorItem, dcVerse));
         productDataStore.add(new Product("Harry's Glasses", 49.9f, "Credits", "Description here", collectorItem, hogwarts));
 
+*/
 
-
-    }*/
     }
 }

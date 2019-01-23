@@ -140,7 +140,6 @@ public class ProductDaoJDBC implements ProductDao {
                 Float defaultPrice = resultSet.getFloat("default_price");
                 String currencyString = resultSet.getString("currency_string");
                 String description = resultSet.getString("description");
-                int productCategoryId = resultSet.getInt("product_category_id");
                 int supplierId = resultSet.getInt("supplier_id");
 
                 SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
@@ -160,6 +159,39 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getByComplex(int productCategoryId, int supplierId) {
-        return null;
+
+        List<Product> resultList = new ArrayList<>();
+
+        String query = "SELECT * FROM product" +
+                " WHERE product.product_category_id = " + productCategoryId +
+                " AND product.supplier_id = " + supplierId + ";";
+
+        try(Connection connection = ShopDBCreator.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)
+        ) {
+
+            while (resultSet.next()) {
+            int productId = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            Float defaultPrice = resultSet.getFloat("default_price");
+            String currencyString = resultSet.getString("currency_string");
+            String description = resultSet.getString("description");
+
+            SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
+            ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+
+            Supplier supplier = supplierDataStore.find(supplierId);
+            ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
+
+            Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
+            resultList.add(product);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultList;
+
     }
 }

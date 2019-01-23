@@ -4,19 +4,19 @@ body {
     font-family: 'Aldrich';
 }
 
-.card
+#products .card
 {
     background-color: darksalmon;
     margin: 10px;
     border-radius: 6px;
     width: min-content;
 }
-.card:hover
+#products .card:hover
 {
     background: #428bca;
 }
 
-.card-text, .card-title
+#products .card-text, .card-title
 {
     text-align: center;
     margin: 5px;
@@ -40,10 +40,24 @@ body {
     background-color: darkblue;
 }
 
-.card-img-top {
+#checkout-form label {
+    color: white;
+}
+
+#checkout-form h3 {
+    color: white;
+    margin: 20px auto 10px auto;
+}
+
+#checkout-form-buttons {
+    margin-top: 25px;
+}
+
+#products .card-img-top {
     width: 15rem;
 }
-.card-text-center {
+
+#products .card-text-center {
     float: initial;
 }
 
@@ -52,9 +66,15 @@ body {
     padding-left: 50px;
 }
 
-.panel-body {
+.footer-body {
     color: floralwhite;
     text-align: center;
+}
+
+#footer {
+    background-color: darkblue;
+    border: none;
+    margin: 15px auto;
 }
 
 .firstoption {

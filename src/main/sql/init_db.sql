@@ -2,6 +2,9 @@
 DROP TABLE IF EXISTS product CASCADE;
 DROP TABLE IF EXISTS product_category CASCADE;
 DROP TABLE IF EXISTS supplier CASCADE;
+DROP TABLE IF EXISTS line_item CASCADE;
+DROP TABLE IF EXISTS order_info CASCADE;
+DROP TABLE IF EXISTS contact_info CASCADE;
 
 
 
@@ -31,11 +34,55 @@ CREATE TABLE Supplier(
   PRIMARY KEY (id)
 );
 
-ALTER TABLE product
+CREATE TABLE Line_Item(
+  id SERIAL,
+  number_of_products INT,
+  product_id INT,
+  order_info_id INT,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Order_Info(
+  id SERIAL,
+  name VARCHAR(255),
+  description VARCHAR (255),
+  total_sum INT,
+  currency VARCHAR (255),
+  contact_info_id INT,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Contact_Info(
+  id SERIAL,
+  name VARCHAR(255),
+  email VARCHAR (255),
+  phone_number VARCHAR (255),
+  billing_address VARCHAR (255),
+  billing_city VARCHAR (255),
+  billing_country VARCHAR (255),
+  billing_zip VARCHAR (255),
+  shipping_address VARCHAR (255),
+  shipping_city VARCHAR (255),
+  shipping_country VARCHAR (255),
+  shipping_zip VARCHAR (255),
+  PRIMARY KEY (id)
+
+);
+
+ALTER TABLE Order_Info
+  ADD CONSTRAINT fk_contact_info_id FOREIGN KEY (contact_info_id) REFERENCES contact_info(id);
+
+ALTER TABLE Product
   ADD CONSTRAINT fk_product_supplier_id FOREIGN KEY (supplier_id) REFERENCES supplier(id);
 
-ALTER TABLE product
+ALTER TABLE Product
   ADD CONSTRAINT fk_product_product_category_id FOREIGN KEY (product_category_id) REFERENCES product_category(id);
+
+ALTER TABLE Line_Item
+  ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES product(id);
+
+ALTER TABLE Line_Item
+  ADD CONSTRAINT fk_order_info_id FOREIGN KEY (order_info_id) REFERENCES order_info(id);
 
 INSERT INTO product_category (name, department, description) VALUES ('Weapon', 'blabla', 'blabla');
 INSERT INTO product_category (name, department, description) VALUES ('Mystic', 'blabla', 'blabla');

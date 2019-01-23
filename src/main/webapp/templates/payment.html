@@ -34,7 +34,7 @@
                 <form action="" method="post" id="payment-form-card">
                     <div class="form-group">
                         <label for="username">Full name (on the card)</label>
-                        <input type="text" id="username" class="form-control" name="username" placeholder="" required="">
+                        <input name="name" type="text" id="username" class="form-control" placeholder="" required="">
                     </div> <!-- form-group.// -->
 
                     <div class="form-group">
@@ -54,8 +54,8 @@
                             <div class="form-group">
                                 <label><span class="hidden-xs">Expiration</span> </label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" placeholder="MM" name="">
-                                    <input type="number" class="form-control" placeholder="YY" name="">
+                                    <input type="number" class="form-control" placeholder="MM" name="expirationMonth">
+                                    <input type="number" class="form-control" placeholder="YY" name="expirationYear">
                                 </div>
                             </div>
                         </div>
@@ -64,11 +64,11 @@
                                 <label data-toggle="tooltip" title=""
                                        data-original-title="3 digits code on back side of the card">CVV <i
                                         class="fa fa-question-circle"></i></label>
-                                <input type="number" class="form-control" required="">
+                                <input name="cvv" type="number" class="form-control" required="">
                             </div> <!-- form-group.// -->
                         </div>
                     </div> <!-- row.// -->
-                    <button class="subscribe btn btn-primary btn-block" type="button"> Confirm</button>
+                    <a th:href="@{/confimation}" class="subscribe btn btn-primary btn-block" type="button"> Confirm</a>
                 </form>
             </div> <!-- tab-pane.// -->
             <div class="tab-pane fade paypal-data" id="nav-tab-paypal">
@@ -77,7 +77,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email-input">Email</label>
-                            <input name="email" type="email" class="form-control" id="email-input" placeholder="you@example.com" required>
+                            <input name="paypalEmail" type="email" class="form-control" id="email-input" placeholder="you@example.com" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password-input">Password</label>
@@ -85,8 +85,8 @@
                         </div>
                     </div>
                     <p>
-                        <button type="button" class="btn btn-primary"><i class="fab fa-paypal"></i> Log in my Paypal
-                        </button>
+                        <a th:href="@{/confimation}" type="button" class="btn btn-primary"><i class="fab fa-paypal"></i> Log in my Paypal
+                        </a>
                     </p>
                 </form>
             </div>

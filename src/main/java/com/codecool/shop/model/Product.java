@@ -17,6 +17,14 @@ public class Product extends BaseModel {
         this.setProductCategory(productCategory);
     }
 
+    public Product(int productId, String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+        super(name, description);
+        this.id = productId;
+        this.setPrice(defaultPrice, currencyString);
+        this.setSupplier(supplier);
+        this.setProductCategory(productCategory);
+    }
+
     public float getDefaultPrice() {
         return defaultPrice;
     }

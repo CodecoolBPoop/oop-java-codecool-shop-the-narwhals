@@ -44,6 +44,7 @@ public class ProductDaoJDBC implements ProductDao {
         ) {
 
             while (resultSet.next()) {
+                int productId = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 Float defaultPrice = resultSet.getFloat("default_price");
                 String currencyString = resultSet.getString("currency_string");
@@ -57,7 +58,7 @@ public class ProductDaoJDBC implements ProductDao {
                 ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
                 Supplier supplier = supplierDataStore.find(supplierId);
 
-                Product product = new Product(name, defaultPrice, description, currencyString, productCategory, supplier);
+                Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
                 resultList.add(product);
             }
 

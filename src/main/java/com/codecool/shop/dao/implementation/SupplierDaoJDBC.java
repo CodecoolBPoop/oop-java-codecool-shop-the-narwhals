@@ -36,6 +36,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public Supplier find(int id) {
+
         String query = "SELECT * FROM supplier " +
                 "WHERE id = " + id + ";";
 

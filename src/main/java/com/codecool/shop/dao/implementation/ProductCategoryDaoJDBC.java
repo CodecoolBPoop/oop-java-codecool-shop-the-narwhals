@@ -4,6 +4,7 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.database.ShopDBCreator;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,7 +35,28 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id) {
-        return null;
+        String query = "SELECT * FROM product_category " +
+                "WHERE id = " + id + ";";
+
+
+        try(Connection connection = ShopDBCreator.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)
+        ) {
+            resultSet.next();
+            int productCategoryId = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            String department = resultSet.getString("department");
+            String description = resultSet.getString("description");
+
+            ProductCategory productCategory = new ProductCategory(productCategoryId, name, department, description);
+            return productCategory;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override

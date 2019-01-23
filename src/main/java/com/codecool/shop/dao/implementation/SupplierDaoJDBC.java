@@ -1,8 +1,10 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.database.ShopDBCreator;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.Connection;
@@ -34,7 +36,27 @@ public class SupplierDaoJDBC implements SupplierDao {
 
     @Override
     public Supplier find(int id) {
-        return null;
+        String query = "SELECT * FROM supplier " +
+                "WHERE id = " + id + ";";
+
+
+        try(Connection connection = ShopDBCreator.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)
+        ) {
+            resultSet.next();
+            int supplierId = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            String description = resultSet.getString("description");
+
+            Supplier supplier = new Supplier(supplierId, name, description);
+            return supplier;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override

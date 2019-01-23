@@ -72,7 +72,7 @@ public class ProductDaoJDBC implements ProductDao {
                 ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
                 Supplier supplier = supplierDataStore.find(supplierId);
 
-                Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
+                Product product = new Product(productId,    name, defaultPrice, description, currencyString, productCategory, supplier);
                 resultList.add(product);
             }
 
@@ -86,7 +86,39 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return null;
+        int currentSupplierId = supplier.getId();
+        List<Product> resultList = new ArrayList<>();
+
+        String query = "SELECT * FROM product" +
+                " WHERE product.supplier_id = " + currentSupplierId + ";";
+
+        try(Connection connection = ShopDBCreator.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)
+        ) {
+
+            while (resultSet.next()) {
+                int productId = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Float defaultPrice = resultSet.getFloat("default_price");
+                String currencyString = resultSet.getString("currency_string");
+                String description = resultSet.getString("description");
+                int productCategoryId = resultSet.getInt("product_category_id");
+                int supplierId = resultSet.getInt("supplier_id");
+
+                ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+                ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
+
+                Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
+                resultList.add(product);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+
     }
 
     @Override

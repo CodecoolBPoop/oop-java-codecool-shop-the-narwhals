@@ -43,7 +43,7 @@ public class ProductController extends HttpServlet {
         context.setVariable("recipient", "World");
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
-        context.setVariable("products", productDataStore.getAll());
+//        context.setVariable("products", productDataStore.getAll());
 
 
 

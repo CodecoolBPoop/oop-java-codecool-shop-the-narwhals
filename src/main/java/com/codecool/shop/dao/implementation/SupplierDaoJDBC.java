@@ -13,6 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao {
+
+    private static SupplierDaoJDBC instance = null;
+
+    public SupplierDaoJDBC() {
+
+    }
+
+    public static SupplierDaoJDBC getInstance() {
+        if (instance == null) {
+            instance = new SupplierDaoJDBC();
+        }
+        return instance;
+    }
+
     @Override
     public void add(Supplier supplier) {
 
@@ -39,9 +53,11 @@ public class SupplierDaoJDBC implements SupplierDao {
             ResultSet resultSet = statement.executeQuery(query)
         ) {
             while (resultSet.next()) {
-                Supplier supplier = new Supplier(resultSet.getString("name"),
-                        resultSet.getString("description")
-                );
+                int supplierId = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+                Supplier supplier = new Supplier(supplierId, name, description);
+
                 resultList.add(supplier);
             }
 

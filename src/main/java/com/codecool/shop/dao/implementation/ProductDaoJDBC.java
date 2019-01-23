@@ -16,6 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
+
+
+    private static ProductDaoJDBC instance = null;
+    public ProductDaoJDBC() {
+
+    }
+
+    public static ProductDaoJDBC getInstance() {
+        if (instance == null) {
+            instance = new ProductDaoJDBC();
+        }
+        return instance;
+    }
+
     @Override
     public void add(Product product) {
 
@@ -44,6 +58,7 @@ public class ProductDaoJDBC implements ProductDao {
         ) {
 
             while (resultSet.next()) {
+                int productId = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 Float defaultPrice = resultSet.getFloat("default_price");
                 String currencyString = resultSet.getString("currency_string");
@@ -51,13 +66,13 @@ public class ProductDaoJDBC implements ProductDao {
                 int productCategoryId = resultSet.getInt("product_category_id");
                 int supplierId = resultSet.getInt("supplier_id");
 
-                ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-                SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+                ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+                SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
 
                 ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
                 Supplier supplier = supplierDataStore.find(supplierId);
 
-                Product product = new Product(name, defaultPrice, description, currencyString, productCategory, supplier);
+                Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
                 resultList.add(product);
             }
 

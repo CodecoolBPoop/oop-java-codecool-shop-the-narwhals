@@ -3,9 +3,7 @@ package com.codecool.shop.config;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -19,10 +17,10 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+        SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
+/*
         //setting up a new supplier
         Supplier earth616 = new Supplier("Earth-616", "");
         supplierDataStore.add(earth616);
@@ -47,6 +45,7 @@ public class Initializer implements ServletContextListener {
 
         ProductCategory collectorItem = new ProductCategory("Collectors' Item", "", "");
         productCategoryDataStore.add(collectorItem);
+
 
         //setting up products and printing it
         productDataStore.add(new Product("Captain America's Shield", 49.9f, "Credits", "Made from the strongest metal on earth, this one-of-a-kind shield will keep you safe against all manner of enemies. Also useful for bashing in arc reactors..", weapon, earth616));
@@ -78,5 +77,7 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Harry's Glasses", 49.9f, "Credits", "Description here", collectorItem, hogwarts));
 
 
+
+    }*/
     }
 }

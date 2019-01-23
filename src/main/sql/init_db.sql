@@ -43,11 +43,11 @@ INSERT INTO product_category (name, department, description) VALUES ('Vehicle', 
 INSERT INTO product_category (name, department, description) VALUES ('Pet', 'blabla', 'blabla');
 INSERT INTO product_category (name, department, description) VALUES ('Collectors Item', 'blabla', 'blabla');
 
-INSERT INTO supplier (name, description) VALUES ('Earth-616', 'blabla'); 1
-INSERT INTO supplier (name, description) VALUES ('Middle-Earth', 'blabla'); 2
-INSERT INTO supplier (name, description) VALUES ('DC-Verse', 'blabla'); 3
-INSERT INTO supplier (name, description) VALUES ('Hogwarts', 'blabla'); 4
-INSERT INTO supplier (name, description) VALUES ('Faraway galaxy', 'blabla'); 5
+INSERT INTO supplier (name, description) VALUES ('Earth-616', 'blabla');
+INSERT INTO supplier (name, description) VALUES ('Middle-Earth', 'blabla');
+INSERT INTO supplier (name, description) VALUES ('DC-Verse', 'blabla');
+INSERT INTO supplier (name, description) VALUES ('Hogwarts', 'blabla');
+INSERT INTO supplier (name, description) VALUES ('Faraway galaxy', 'blabla');
 
 INSERT INTO product (name, default_price,currency_string,description,product_category_id,supplier_id)  VALUES ('Captain America''s Shield', 49.9, 'Credits',
                                                                                                                'Made from the strongest metal on earth, this one-of-a-kind shield will ' ||

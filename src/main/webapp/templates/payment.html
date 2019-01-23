@@ -2,6 +2,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="header.html :: header"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script th:src="@{/static/scripts/payment.js}" defer></script>
+
     <title>Payment</title>
 </head>
 <body>
@@ -13,7 +16,8 @@
         <div class="d-flex justify-content-center">
             <div class="p-2 price">Order total:&nbsp;
                 <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
-                Credits</div>
+                Credits
+            </div>
         </div>
     </div>
     <div class="payment-container">
@@ -34,16 +38,18 @@
                 <form action="" method="post" id="payment-form-card">
                     <div class="form-group">
                         <label for="username">Full name (on the card)</label>
-                        <input name="name" type="text" id="username" class="form-control" placeholder="" required="">
+                        <input name="name" type="text" id="username" class="form-control" placeholder="" required>
                     </div> <!-- form-group.// -->
 
                     <div class="form-group">
-                        <label for="cardNumber">Card number</label>
+                        <label for="card">Card number</label>
                         <div class="input-group">
-                            <input type="number" id="cardNumber" class="form-control" name="cardNumber" placeholder="">
+                            <input maxlength="19" type="text" id="card" class="form-control" name="cardNumber"
+                                   placeholder="0000 0000 0000 0000" required>
                             <div class="input-group-append">
                                         <span class="input-group-text text-muted">
-                                            <i class="fab fa-cc-visa"></i>&nbsp;<i class="fab fa-cc-amex"></i>&nbsp;<i class="fab fa-cc-mastercard"></i>
+                                            <i class="fab fa-cc-visa"></i>&nbsp;<i class="fab fa-cc-amex"></i>&nbsp;<i
+                                                class="fab fa-cc-mastercard"></i>
                                         </span>
                             </div>
                         </div>
@@ -54,21 +60,23 @@
                             <div class="form-group">
                                 <label><span class="hidden-xs">Expiration</span> </label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" placeholder="MM" name="expirationMonth">
-                                    <input type="number" class="form-control" placeholder="YY" name="expirationYear">
+                                    <input maxlength="2" type="text" class="form-control" placeholder="MM" name="expirationMonth"
+                                           required>
+                                    <input maxlength="2" type="text" class="form-control" placeholder="YY" name="expirationYear"
+                                           required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label data-toggle="tooltip" title=""
-                                       data-original-title="3 digits code on back side of the card">CVV <i
+                                       data-original-title="3 digits code on back side of the card">CVV<i
                                         class="fa fa-question-circle"></i></label>
-                                <input name="cvv" type="number" class="form-control" required="">
+                                <input maxlength="3" name="cvv" type="text" class="form-control" required>
                             </div> <!-- form-group.// -->
                         </div>
                     </div> <!-- row.// -->
-                    <a th:href="@{/confimation}" class="subscribe btn btn-primary btn-block" type="button"> Confirm</a>
+                    <a th:href="@{/confimation}" class="subscribe btn btn-primary btn-block" type="button">Confirm</a>
                 </form>
             </div> <!-- tab-pane.// -->
             <div class="tab-pane fade paypal-data" id="nav-tab-paypal">
@@ -77,15 +85,18 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="email-input">Email</label>
-                            <input name="paypalEmail" type="email" class="form-control" id="email-input" placeholder="you@example.com" required>
+                            <input name="paypalEmail" type="email" class="form-control" id="email-input"
+                                   placeholder="you@example.com" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="password-input">Password</label>
-                            <input name="paypalPassword" type="password" class="form-control" id="password-input" required>
+                            <input name="paypalPassword" type="password" class="form-control" id="password-input"
+                                   required>
                         </div>
                     </div>
                     <p>
-                        <a th:href="@{/confimation}" type="button" class="btn btn-primary"><i class="fab fa-paypal"></i> Log in my Paypal
+                        <a th:href="@{/confimation}" type="button" class="btn btn-primary"><i class="fab fa-paypal"></i>
+                            Log in my Paypal
                         </a>
                     </p>
                 </form>
@@ -117,7 +128,6 @@
 
     <!-- col.// -->
 </div>
-
 
 </body>
 </html>

@@ -8,7 +8,14 @@
 <div class="jumbotron text-center">
     <h1>Payment</h1>
 </div>
-<div class="container">
+<div class="container payment-contain">
+    <div id="price-container">
+        <div class="d-flex justify-content-center">
+            <div class="p-2 price">Order total:&nbsp;
+                <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
+                Credits</div>
+        </div>
+    </div>
     <div class="payment-container">
         <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
             <li class="nav-item">
@@ -22,10 +29,9 @@
                     <i class="fa fa-university"></i> Bank Transfer</a></li>
         </ul>
 
-        <div class="tab-content">
+        <div class="tab-content" id="payment-data">
             <div class="tab-pane fade show active" id="nav-tab-card">
-                <p class="alert alert-success">Some text success or error</p>
-                <form action="" method="post" id="payment-form">
+                <form action="" method="post" id="payment-form-card">
                     <div class="form-group">
                         <label for="username">Full name (on the card)</label>
                         <input type="text" id="username" class="form-control" name="username" placeholder="" required="">
@@ -34,11 +40,10 @@
                     <div class="form-group">
                         <label for="cardNumber">Card number</label>
                         <div class="input-group">
-                            <input type="text" id="cardNumber" class="form-control" name="cardNumber" placeholder="">
+                            <input type="number" id="cardNumber" class="form-control" name="cardNumber" placeholder="">
                             <div class="input-group-append">
                                         <span class="input-group-text text-muted">
-                                            <i class="fab fa-cc-visa"></i>   <i class="fab fa-cc-amex"></i>  
-                                            <i class="fab fa-cc-mastercard"></i>
+                                            <i class="fab fa-cc-visa"></i>&nbsp;<i class="fab fa-cc-amex"></i>&nbsp;<i class="fab fa-cc-mastercard"></i>
                                         </span>
                             </div>
                         </div>
@@ -66,20 +71,30 @@
                     <button class="subscribe btn btn-primary btn-block" type="button"> Confirm</button>
                 </form>
             </div> <!-- tab-pane.// -->
-            <div class="tab-pane fade" id="nav-tab-paypal">
+            <div class="tab-pane fade paypal-data" id="nav-tab-paypal">
                 <p>Paypal is easiest way to pay online</p>
-                <p>
-                    <button type="button" class="btn btn-primary"><i class="fab fa-paypal"></i> Log in my Paypal
-                    </button>
-                </p>
-                <p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. </p>
+                <form action="" method="post" id="payment-form-paypal">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="email-input">Email</label>
+                            <input name="email" type="email" class="form-control" id="email-input" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password-input">Password</label>
+                            <input name="paypalPassword" type="password" class="form-control" id="password-input" required>
+                        </div>
+                    </div>
+                    <p>
+                        <button type="button" class="btn btn-primary"><i class="fab fa-paypal"></i> Log in my Paypal
+                        </button>
+                    </p>
+                </form>
             </div>
-            <div class="tab-pane fade" id="nav-tab-bank">
+            <div class="tab-pane fade bank-account" id="nav-tab-bank">
                 <p>Bank account details</p>
                 <dl class="param">
                     <dt>BANK:</dt>
-                    <dd> THE WORLD BANK</dd>
+                    <dd> THE NARWHALS BANK</dd>
                 </dl>
                 <dl class="param">
                     <dt>Account number:</dt>
@@ -89,12 +104,14 @@
                     <dt>IBAN:</dt>
                     <dd> 123456789</dd>
                 </dl>
-                <p><strong>Note:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. </p>
+                <p>Note that bank transactions may take up to 4 hours!</p>
             </div> <!-- tab-pane.// -->
         </div> <!-- tab-content .// -->
 
     </div> <!-- card-body.// -->
+    <div class="d-flex justify-content-start back-to-checkout">
+        <a class="btn btn-info" role="button" th:href="@{/checkout}">Back to checkout</a>
+    </div>
     <!-- card.// -->
 
 

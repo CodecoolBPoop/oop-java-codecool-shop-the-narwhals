@@ -40,7 +40,7 @@ body {
     background-color: darkblue;
 }
 
-#checkout-form label {
+#checkout-form label, #payment-data label, .paypal-data, .bank-account, #price-container {
     color: white;
 }
 
@@ -99,6 +99,18 @@ body {
 .amount-number {
     width: 20px;
     margin: auto 0px;
+}
+
+#price-container {
+    margin-bottom: 25px;
+}
+
+.payment-contain {
+    margin-bottom: 40px;
+}
+
+.back-to-checkout {
+    margin-top: 20px;
 }
 
 h1 a {

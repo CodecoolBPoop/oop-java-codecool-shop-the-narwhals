@@ -2,6 +2,8 @@ package com.codecool.shop.controller;
 
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -18,6 +20,9 @@ public class PaymentController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+
+        context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast());
 
         engine.process("payment.html", context, resp.getWriter());
     }

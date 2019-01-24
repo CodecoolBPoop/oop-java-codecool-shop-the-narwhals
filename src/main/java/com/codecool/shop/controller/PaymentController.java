@@ -3,7 +3,10 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoJDBC;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.personal.ContactInfo;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -29,6 +32,12 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        OrderDao orderMemDataStore = OrderDaoMem.getInstance();
+        OrderDao orderDBDataStore = OrderDaoJDBC.getInstance();
+        Order order = ((OrderDaoMem) orderMemDataStore).findLast();
+        ContactInfo contactInfo = order.getContactInfo();
+        ((OrderDaoJDBC) orderDBDataStore).add(contactInfo);
+        orderDBDataStore.add(order);
         response.sendRedirect("/confirmation");
     }
 }

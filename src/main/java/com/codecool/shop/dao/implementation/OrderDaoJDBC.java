@@ -32,7 +32,7 @@ public class OrderDaoJDBC implements OrderDao {
     public void add(ContactInfo contactInfo) {
         String contactInfoQuery = " INSERT INTO contact_info (name, email, phone_number, billing_address, " +
                 " shipping_address)" +
-                " VALUES (?,?,?,?,?);";
+                " VALUES (?,?,?,?,?) RETURNING id;";
 
         try(Connection connection = ShopDBCreator.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(contactInfoQuery)
@@ -44,17 +44,22 @@ public class OrderDaoJDBC implements OrderDao {
             preparedStatement.setString(4, contactInfo.getBillingAddressString());
             preparedStatement.setString(5, contactInfo.getShippingAddressString());
 
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            int contactInfoId = resultSet.getInt("id");
+            OrderDao orderMemDataStore = OrderDaoMem.getInstance();
+            Order order = ((OrderDaoMem) orderMemDataStore).findLast();
+            order.setContactInfoId(contactInfoId);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
+
+    @Override
     public void add(Order order) {
-
-    }
-
-    public void addToDB(Order order) {
         String orderQuery = " INSERT INTO order_info (name, description, total_sum, currency, " +
                 " contact_info_id)" +
                 " VALUES (?,?,?,?,?);";
@@ -68,8 +73,7 @@ public class OrderDaoJDBC implements OrderDao {
             preparedStatement.setFloat(3, order.getTotalSum());
             preparedStatement.setString(4, order.getCurrency());
             preparedStatement.setInt(5, order.getContactInfoId());
-
-
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

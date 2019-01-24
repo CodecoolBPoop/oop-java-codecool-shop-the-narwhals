@@ -13,7 +13,12 @@ public class Order extends BaseModel{
     private List<LineItem> items = new ArrayList<>();
     private int totalSum;
     private final String CURRENCY = "Credits";
+
     private ContactInfo contactInfo;
+
+    public ContactInfo getContactInfo() {
+        return contactInfo;
+    }
 
     public Order(String orderName, String orderDescription) {
         super(orderName, orderDescription);
@@ -102,5 +107,9 @@ public class Order extends BaseModel{
 
     public int getContactInfoId() {
         return contactInfo.getId();
+    }
+
+    public void setContactInfoId(int id) {
+        contactInfo.setId(id);
     }
 }

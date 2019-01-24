@@ -4,11 +4,11 @@ public class ContactInfo {
     private int id;
 
     private String name;
+
     private String email;
     private String phoneNumber;
     private Address billingAddress;
     private Address shippingAddress;
-
     public int getId() {
         return id;
     }
@@ -32,6 +32,10 @@ public class ContactInfo {
 
     public String getShippingAddressString() {
         return this.shippingAddress.toString();
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public ContactInfo(String name, String email, String phoneNumber, Address billingAddress, Address shippingAddress) {

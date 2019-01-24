@@ -2,30 +2,28 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="header.html :: header"></div>
-    <script th:src="@{/static/scripts/amount_setter.js}" defer></script>
-    <title>Cart</title>
+    <title>Confirmation</title>
 </head>
-<body>
-    <div class="main-title jumbotron text-center">
-        <h1>Collected Items</h1>
+<body class="confirmation-page">
+<div class="confirmation-container container">
+    <div class="alert alert-success success-text">
+        <h3 class="confirm-p">Thank you for your purchase!</h3>
+        <h5 class="confirm-p">An email has been sent to you about the details.</h5>
     </div>
-    <div class="container">
-        <div class="row line-item" th:each="lineItem : ${order.getItems()}">
+    <h4 id="title-container">
+        Order details
+    </h4>
+    <div id="order-container" th:each="lineItem : ${order.getItems()}">
+        <div class="row line-item">
             <div class="col-md-6 col-sm-12 d-flex align-items-center" th:text="${lineItem.getProductName()}">
                 Product Name
             </div>
             <div class="col-md-3 d-inline d-flex justify-content-center flex-wrap text-center"
                  th:attr="data-product-id=${lineItem.getProductId()}">
-                <div>
-                    <button class="btn btn-primary decrease-button amount-button" data-change="-1">-</button>
-                </div>
                 <div class="amount-number">
                     <p class="text-center amount-number" th:text="${lineItem.getNumberOfProducts()}">
                         Number
                     </p>
-                </div>
-                <div >
-                    <button class="btn btn-primary increase-button amount-button" data-change="1">+</button>
                 </div>
             </div>
             <div class="col-md-3 d-flex align-items-center justify-content-end">
@@ -36,21 +34,20 @@
                 </span>
                 &nbsp;Credits
             </div>
-        </div>
-        <div class="d-flex flex-row-reverse">
-            <div class="d-flex justify-content-center">
-                <div class="cart-order-total">
-                    Order total:&nbsp;
-                    <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2, 'POINT')}"></span>
-                    Credits
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between" id="cart-buttons">
-            <a class="btn btn-info" role="button" href="/">Back to main page</a>
-            <a class="btn btn-success" th:href="@{/checkout}">Checkout</a>
+
         </div>
     </div>
+    <div class="d-flex justify-content-end">
+        <h6 class="conf-order-total">
+            Order total:&nbsp;
+            <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2, 'POINT')}"></span>
+            Credits
+        </h6>
+    </div>
 
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-success" href="/">Back to Main page</a>
+    </div>
+</div>
 </body>
 </html>

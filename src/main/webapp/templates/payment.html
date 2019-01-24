@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="header.html :: header"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script th:src="@{/static/scripts/payment.js}" defer></script>
+
+    <title>Payment</title>
+</head>
+<body>
+<div class="main-title jumbotron text-center">
+    <h1>Payment</h1>
+</div>
+<div class="container payment">
+    <h5 id="price-container">
+        Order total:&nbsp;
+        <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
+        Credits
+    </h5>
+    <div class="d-flex justify-content-center">
+        <div class="payment-container">
+            <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="pill" href="#nav-tab-card">
+                        <i class="fa fa-credit-card"></i> Credit Card</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+                        <i class="fab fa-paypal"></i> Paypal</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
+                        <i class="fa fa-university"></i> Bank Transfer</a></li>
+            </ul>
+
+            <div class="tab-content" id="payment-data">
+                <div class="bankcard-data tab-pane fade show active" id="nav-tab-card">
+                    <form action="" method="post" id="payment-form-card">
+                        <div class="form-group">
+                            <label for="username">Full name (on the card)</label>
+                            <input name="name" type="text" id="username" class="form-control" placeholder="" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardNumber">Card number</label>
+                            <div class="input-group">
+                                <input maxlength="19" type="text" id="cardNumber" class="form-control" name="cardNumber"
+                                       placeholder="0000-0000-0000-0000" required>
+                                <div class="input-group-append">
+                                        <span class="input-group-text text-muted">
+                                            <i class="fab fa-cc-visa"></i>&nbsp;<i class="fab fa-cc-amex"></i>&nbsp;<i
+                                                class="fab fa-cc-mastercard"></i>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label><span class="hidden-xs">Expiration</span> </label>
+                                    <div class="input-group">
+                                        <input min="1" max="12" type="number" class="form-control" id="expirationMonth"
+                                               placeholder="MM" name="expirationMonth"
+                                               required>
+                                        <input min="2019" max="2030" type="number" class="form-control"
+                                               id="expirationYear" placeholder="YY" name="expirationYear"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label name="cvv" data-toggle="tooltip"
+                                           title="3 digits code on back side of the card"
+                                    >CVV<i class="fa fa-question-circle">
+                                    </i></label>
+                                    <input min="100" max="999" type="number" name="cvv" class="form-control" id="cvv"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between" id="bankCard-buttons">
+                            <a class="btn btn-info" role="button" th:href="@{/checkout}">Back to checkout</a>
+                            <input type="submit" class="btn btn-success bankcard-submit-button">
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade paypal-data" id="nav-tab-paypal">
+                    <p>Paypal is easiest way to pay online</p>
+                    <form action="" method="post" id="payment-form-paypal">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="email-input">Email</label>
+                                <input name="paypalEmail" type="email" class="form-control" id="email-input"
+                                       placeholder="you@example.com" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="password-input">Password</label>
+                                <input name="paypalPassword" type="password" class="form-control" id="password-input"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between" id="paypal-buttons">
+                            <a class="btn btn-info" role="button" th:href="@{/checkout}">Back to checkout</a>
+                            <input type="submit" class="btn btn-success paypal-submit-button">
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade bank-account" id="nav-tab-bank">
+                    <dl class="param">
+                        <dt>BANK:</dt>
+                        <dd> THE NARWHALS BANK</dd>
+                    </dl>
+                    <dl class="param">
+                        <dt>Account number:</dt>
+                        <dd> 12345678912345</dd>
+                    </dl>
+                    <dl class="param">
+                        <dt>IBAN:</dt>
+                        <dd> 123456789</dd>
+                    </dl>
+                    <p>Note that bank transactions may take up to 4 hours!</p>
+                    <div class="d-flex justify-content-start back-to-checkout">
+                        <a class="btn btn-info" role="button" th:href="@{/checkout}">Back to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div th:replace="footer.html :: copy"></div>
+</body>
+</html>

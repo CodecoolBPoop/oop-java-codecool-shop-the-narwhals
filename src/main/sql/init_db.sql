@@ -83,11 +83,11 @@ ALTER TABLE Line_Item
 ALTER TABLE Contact_Info
   ADD CONSTRAINT fk_order_info_id FOREIGN KEY (order_info_id) REFERENCES order_info(id);
 
-INSERT INTO product_category (name, department, description) VALUES ('Weapon', 'blabla', 'blabla');
-INSERT INTO product_category (name, department, description) VALUES ('Mystic', 'blabla', 'blabla');
-INSERT INTO product_category (name, department, description) VALUES ('Vehicle', 'blabla', 'blabla');
-INSERT INTO product_category (name, department, description) VALUES ('Pet', 'blabla', 'blabla');
-INSERT INTO product_category (name, department, description) VALUES ('Collectors Item', 'blabla', 'blabla');
+INSERT INTO product_category (name, department, description) VALUES ('Weapon', 'Pointy things', 'These items have hurty ends. Sometimes more than one.');
+INSERT INTO product_category (name, department, description) VALUES ('Mystic', 'Magical things', 'Where science fails');
+INSERT INTO product_category (name, department, description) VALUES ('Vehicle', 'Fast things', 'Things you can crash with style');
+INSERT INTO product_category (name, department, description) VALUES ('Pet', 'Furry things', 'Dumb but lovable');
+INSERT INTO product_category (name, department, description) VALUES ('Collectors Item', 'Baubly things', 'Worth is in the eye of the beholder');
 
 INSERT INTO supplier (name, description) VALUES ('Earth-616', 'blabla');
 INSERT INTO supplier (name, description) VALUES ('Middle-Earth', 'blabla');

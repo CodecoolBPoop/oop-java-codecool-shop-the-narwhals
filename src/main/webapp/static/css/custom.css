@@ -95,7 +95,7 @@ body {
     margin: auto 0px;
 }
 
-#price-container {
+#price-container, #title-container {
     padding: 15px;
     text-align: center;
     margin: 0;
@@ -121,4 +121,22 @@ h1 a {
 .main-title {
     background-image: url("blue.png");
     margin: 0;
+}
+.success-text {
+    margin: 10px;
+    text-align: center;
+}
+.confirm-p {
+    margin: 10px;
+ }
+.confirmation-page {
+    background-color: darkcyan;
+}
+.confirmation-container {
+    padding: 10px;
+    color: #001a1a;
+}
+#title-container {
+    font-weight: bold;
+    color: #001a1a;
 }

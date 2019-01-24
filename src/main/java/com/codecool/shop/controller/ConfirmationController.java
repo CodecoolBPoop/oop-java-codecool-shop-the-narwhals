@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,7 +23,9 @@ public class ConfirmationController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
 
-        context.setVariable("order", ((OrderDaoMem) orderDataStore).findLast());
+        Order order = ((OrderDaoMem) orderDataStore).findLast();
+        context.setVariable("order", order);
+        orderDataStore.remove(order.getId());
 
         engine.process("confirmation.html", context, response.getWriter());
     }

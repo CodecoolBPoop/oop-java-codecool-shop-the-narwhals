@@ -12,4 +12,30 @@ public class Address {
         this.country = country;
         this.zipCode = zipCode;
     }
+
+    @Override
+    public String toString() {
+        return "Address{," +
+                "address='" + address + '\'' +
+                "; city='" + city + '\'' +
+                "; country='" + country + '\'' +
+                "; zipCode='" + zipCode + '\'' +
+                ",}";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
 }

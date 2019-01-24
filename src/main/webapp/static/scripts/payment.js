@@ -1,6 +1,6 @@
 payment = {
     cardNumberModifier: function(){
-        $('#card').keyup(function() {
+        $('#cardNumber').keyup(function() {
             $(this).val($(this).val().replace(/(\d{4})(\d+)/g, '$1-$2'))
         });
     }

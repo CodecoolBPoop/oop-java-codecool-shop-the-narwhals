@@ -26,4 +26,9 @@ public class PaymentController extends HttpServlet {
 
         engine.process("payment.html", context, resp.getWriter());
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/confirmation");
+    }
 }

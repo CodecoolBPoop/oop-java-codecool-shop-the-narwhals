@@ -14,8 +14,8 @@
 <div class="container payment">
     <h5 id="price-container">
         Order total:&nbsp;
-            <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
-            Credits
+        <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
+        Credits
     </h5>
     <div class="d-flex justify-content-center">
         <div class="payment-container">
@@ -37,13 +37,12 @@
                         <div class="form-group">
                             <label for="username">Full name (on the card)</label>
                             <input name="name" type="text" id="username" class="form-control" placeholder="" required>
-                        </div> <!-- form-group.// -->
-
+                        </div>
                         <div class="form-group">
-                            <label for="card">Card number</label>
+                            <label for="cardNumber">Card number</label>
                             <div class="input-group">
-                                <input maxlength="19" type="text" id="card" class="form-control" name="cardNumber"
-                                       placeholder="0000 0000 0000 0000" required>
+                                <input maxlength="19" type="text" id="cardNumber" class="form-control" name="cardNumber"
+                                       placeholder="0000-0000-0000-0000" required>
                                 <div class="input-group-append">
                                         <span class="input-group-text text-muted">
                                             <i class="fab fa-cc-visa"></i>&nbsp;<i class="fab fa-cc-amex"></i>&nbsp;<i
@@ -51,18 +50,18 @@
                                         </span>
                                 </div>
                             </div>
-                        </div> <!-- form-group.// -->
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label><span class="hidden-xs">Expiration</span> </label>
                                     <div class="input-group">
-                                        <input maxlength="2" type="text" class="form-control" placeholder="MM"
-                                               name="expirationMonth"
+                                        <input min="1" max="12" type="number" class="form-control" id="expirationMonth"
+                                               placeholder="MM" name="expirationMonth"
                                                required>
-                                        <input maxlength="2" type="text" class="form-control" placeholder="YY"
-                                               name="expirationYear"
+                                        <input min="2019" max="2030" type="number" class="form-control"
+                                               id="expirationYear" placeholder="YY" name="expirationYear"
                                                required>
                                     </div>
                                 </div>
@@ -73,17 +72,17 @@
                                            title="3 digits code on back side of the card"
                                     >CVV<i class="fa fa-question-circle">
                                     </i></label>
-                                    <input maxlength="3" name="cvv" type="text" class="form-control" required>
-                                </div> <!-- form-group.// -->
+                                    <input min="100" max="999" type="number" name="cvv" class="form-control" id="cvv"
+                                           required>
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between" id="bankCard-buttons">
                             <a class="btn btn-info" role="button" th:href="@{/checkout}">Back to checkout</a>
-                            <a role="button" th:href="@{/confimation}" class="btn btn-success confirm-button"
-                            >Confirm</a>
+                            <input type="submit" class="btn btn-success bankcard-submit-button">
                         </div>
                     </form>
-                </div> <!-- tab-pane.// -->
+                </div>
                 <div class="tab-pane fade paypal-data" id="nav-tab-paypal">
                     <p>Paypal is easiest way to pay online</p>
                     <form action="" method="post" id="payment-form-paypal">
@@ -99,12 +98,11 @@
                                        required>
                             </div>
                         </div>
+                        <div class="d-flex justify-content-between" id="paypal-buttons">
+                            <a class="btn btn-info" role="button" th:href="@{/checkout}">Back to checkout</a>
+                            <input type="submit" class="btn btn-success paypal-submit-button">
+                        </div>
                     </form>
-                    <div class="d-flex justify-content-between" id="paypal-buttons">
-                        <a th:href="@{/confimation}" role="button" class="btn btn-primary"><i
-                                class="fab fa-paypal"></i>Log in my Paypal</a>
-                        <a class="btn btn-info" role="button" th:href="@{/checkout}">Back to checkout</a>
-                    </div>
                 </div>
                 <div class="tab-pane fade bank-account" id="nav-tab-bank">
                     <dl class="param">

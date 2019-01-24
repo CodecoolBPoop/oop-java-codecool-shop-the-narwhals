@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="col-md-3 d-flex align-items-center justify-content-end">
-                <span class="lineitem-price" th:text="${#numbers.formatDecimal(lineItem.getTotalPrice(), 0, 2)}"
+                <span class="lineitem-price" th:text="${#numbers.formatDecimal(lineItem.getTotalPrice(), 0, 2, 'POINT')}"
                       th:attr="data-unit-price=${lineItem.getUNIT_PRICE()}"
                       th:id="'product-' + ${lineItem.getProductId()} + '-price'">
                     Price
@@ -40,7 +40,7 @@
     <div class="d-flex justify-content-end">
         <h6 class="conf-order-total">
             Order total:&nbsp;
-            <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
+            <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2, 'POINT')}"></span>
             Credits
         </h6>
     </div>

@@ -2,25 +2,37 @@ body {
     font-family: 'Aldrich';
 }
 
-#products .card
-{
-    background-color: darksalmon;
-    margin: 10px;
-    border-radius: 6px;
-    width: min-content;
-}
-#products .card:hover
-{
-    background: #428bca;
+.product-grid {
+    padding: 5px;
 }
 
-#products .card-text, .card-title
-{
+.product-card {
+    background-color: black;
+    margin: 10px 5px;
+    border-radius: 6px;
+    min-width: 200px;
+    border: 3px solid black;
+}
+
+.product-card:hover {
+    border: 3px solid yellow;
+}
+
+.card-product-price {
     text-align: center;
     margin: 5px;
+    height: 3rem;
 }
-.btn-group
-{
+
+.product-card-body {
+    color: #ababab;
+}
+
+.product-desc {
+    height: 4em;
+}
+
+.btn-group {
     margin: 20px;
 }
 
@@ -34,7 +46,8 @@ body {
     background-color: darkblue;
 }
 
-#checkout-form label, #payment-data label, .paypal-data, .bank-account, #price-container {
+#checkout-form label, #payment-data label, .paypal-data, .bank-account, #price-container,
+.cart-order-total{
     color: white;
 }
 
@@ -47,12 +60,14 @@ body {
     margin-top: 25px;
 }
 
-#products .card-img-top {
-    width: 15rem;
+.product-img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
 }
 
-#products .card-text-center {
-    float: initial;
+.product-title {
+    height: 3em;
 }
 
 #buttons-on-top {
@@ -122,21 +137,30 @@ h1 a {
     background-image: url("blue.png");
     margin: 0;
 }
+
 .success-text {
     margin: 10px;
     text-align: center;
 }
+
 .confirm-p {
     margin: 10px;
  }
+
 .confirmation-page {
     background-color: darkcyan;
 }
+
 .confirmation-container {
     padding: 10px;
     color: #001a1a;
 }
+
 #title-container {
     font-weight: bold;
     color: #001a1a;
+}
+
+.cart-order-total {
+    padding: 25px;
 }

@@ -46,7 +46,8 @@ body {
     background-color: darkblue;
 }
 
-#checkout-form label, #payment-data label, .paypal-data, .bank-account, #price-container {
+#checkout-form label, #payment-data label, .paypal-data, .bank-account, #price-container,
+.cart-order-total{
     color: white;
 }
 
@@ -135,4 +136,7 @@ h1 a {
 .main-title {
     background-image: url("blue.png");
     margin: 0;
+}
+.cart-order-total {
+    padding: 25px;
 }

@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.OrderDaoJDBC;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
@@ -52,7 +53,7 @@ public class OrderController extends HttpServlet {
         Order order = Order.getInstance();
         order.addProduct(product);
 
-        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+        OrderDaoJDBC orderDataStore = OrderDaoJDBC.getInstance();
         if (orderDataStore.find(order.getId()) == null) {
             orderDataStore.add(order);
         }

@@ -19,6 +19,15 @@ public class LineItem extends BaseModel {
         this.totalPrice = product.getDefaultPrice();
     }
 
+    public LineItem(Product product, int id, int numberOfProducts, String name, String description,int productId) {
+        super(name, description);
+        this.id = id;
+        this.numberOfProducts = numberOfProducts;
+        this.productId = productId;
+        this.UNIT_PRICE = product.getDefaultPrice();
+        this.totalPrice = product.getDefaultPrice();
+    }
+
     public String getProductName() {
         ProductDaoJDBC productStore = ProductDaoJDBC.getInstance();
         return productStore.find(productId).getName();

@@ -19,6 +19,12 @@ public class Order extends BaseModel{
         super(orderName, orderDescription);
     }
 
+//    public Order(int id, String name, String description, int totalSum, int contactInfoId, List<LineItem> lineItems) {
+//        super(name, description);
+//        this.id = id;
+//        this.totalSum = totalSum;
+//    }
+
     public static Order getInstance() {
         if (instance == null) {
             String orderName = "Current order";

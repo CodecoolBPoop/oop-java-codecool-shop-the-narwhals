@@ -37,6 +37,8 @@ CREATE TABLE Supplier(
 CREATE TABLE Line_Item(
   id SERIAL,
   number_of_products INT,
+  name VARCHAR(255),
+  description VARCHAR(255),
   product_id INT,
   order_info_id INT,
   PRIMARY KEY (id)
@@ -58,15 +60,9 @@ CREATE TABLE Contact_Info(
   email VARCHAR (255),
   phone_number VARCHAR (255),
   billing_address VARCHAR (255),
-  billing_city VARCHAR (255),
-  billing_country VARCHAR (255),
-  billing_zip VARCHAR (255),
   shipping_address VARCHAR (255),
-  shipping_city VARCHAR (255),
-  shipping_country VARCHAR (255),
-  shipping_zip VARCHAR (255),
+  order_info_id INT,
   PRIMARY KEY (id)
-
 );
 
 ALTER TABLE Order_Info
@@ -82,6 +78,9 @@ ALTER TABLE Line_Item
   ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES product(id);
 
 ALTER TABLE Line_Item
+  ADD CONSTRAINT fk_order_info_id FOREIGN KEY (order_info_id) REFERENCES order_info(id);
+
+ALTER TABLE Contact_Info
   ADD CONSTRAINT fk_order_info_id FOREIGN KEY (order_info_id) REFERENCES order_info(id);
 
 INSERT INTO product_category (name, department, description) VALUES ('Weapon', 'blabla', 'blabla');

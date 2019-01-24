@@ -4,11 +4,8 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Order;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -27,22 +24,29 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+//        ProductDao productDataStore = ProductDaoMem.getInstance();
+
+//        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+//        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
         OrderDao orderDataStore = OrderDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        //context.setVariables(params);
+//        context.setVariables(params);
 
         int categoryIdFromUrl = req.getParameter("category") == null ? 0 : Integer.parseInt(req.getParameter("category"));
         int supplierIdFromUrl = req.getParameter("supplier") == null ? 0 : Integer.parseInt(req.getParameter("supplier"));
 
         context.setVariable("recipient", "World");
         context.setVariable("categories", productCategoryDataStore.getAll());
-        context.setVariable("products", productDataStore.getAll());
         context.setVariable("suppliers", supplierDataStore.getAll());
+//        context.setVariable("products", productDataStore.getAll());
+
+
+
         try {
             Order currentOrder = ((OrderDaoMem) orderDataStore).findLast();
             context.setVariable("numberOfProductsInCart", currentOrder.getTotalNumberOfOrderedProducts());

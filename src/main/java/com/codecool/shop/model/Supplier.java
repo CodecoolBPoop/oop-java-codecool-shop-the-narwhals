@@ -9,6 +9,14 @@ public class Supplier extends BaseModel {
     public Supplier(String name, String description) {
         super(name);
         this.products = new ArrayList<>();
+        this.description = description;
+    }
+
+    public Supplier(int supplierId, String name, String description) {
+        super(name);
+        this.id = supplierId;
+
+        this.description = description;
     }
 
     public void setProducts(ArrayList<Product> products) {

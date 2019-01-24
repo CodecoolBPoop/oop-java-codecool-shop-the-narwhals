@@ -38,18 +38,12 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         String query = "SELECT * FROM product_category " +
                 "WHERE id = " + id + ";";
 
-
         try(Connection connection = ShopDBCreator.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query)
         ) {
             resultSet.next();
-            int productCategoryId = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            String department = resultSet.getString("department");
-            String description = resultSet.getString("description");
-
-            ProductCategory productCategory = new ProductCategory(productCategoryId, name, department, description);
+            ProductCategory productCategory = getProductCategoryObj(resultSet);
             return productCategory;
 
         } catch (SQLException e) {
@@ -75,11 +69,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             ResultSet resultSet = statement.executeQuery(query)
         ) {
             while (resultSet.next()) {
-                int productCategoryId = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String department = resultSet.getString("department");
-                String description = resultSet.getString("description");
-                ProductCategory productCategory = new ProductCategory(productCategoryId, name, department, description);
+                ProductCategory productCategory = getProductCategoryObj(resultSet);
 
                 resultList.add(productCategory);
             }
@@ -89,5 +79,13 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         }
         return resultList;
 
+    }
+
+    private ProductCategory getProductCategoryObj(ResultSet resultSet) throws SQLException {
+        int productCategoryId = resultSet.getInt("id");
+        String name = resultSet.getString("name");
+        String department = resultSet.getString("department");
+        String description = resultSet.getString("description");
+        return new ProductCategory(productCategoryId, name, department, description);
     }
 }

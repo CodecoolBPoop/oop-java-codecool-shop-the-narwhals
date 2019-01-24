@@ -7,20 +7,25 @@ body {
 }
 
 .product-card {
-    background-color: darksalmon;
+    background-color: black;
     margin: 10px 5px;
     border-radius: 6px;
     min-width: 200px;
+    border: 3px solid black;
 }
 
-#products .card:hover {
-    background: #428bca;
+.product-card:hover {
+    border: 3px solid yellow;
 }
 
 .card-product-price {
     text-align: center;
     margin: 5px;
     height: 3rem;
+}
+
+.product-card-body {
+    color: #ababab;
 }
 
 .product-desc {

@@ -17,6 +17,14 @@ public class Product extends BaseModel {
         this.setProductCategory(productCategory);
     }
 
+    public Product(int productId, String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+        super(name, description);
+        this.id = productId;
+        this.setPrice(defaultPrice, currencyString);
+        this.setSupplier(supplier);
+        this.setProductCategory(productCategory);
+    }
+
     public float getDefaultPrice() {
         return defaultPrice;
     }
@@ -48,7 +56,9 @@ public class Product extends BaseModel {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
-        this.productCategory.addProduct(this);
+
+        // daomem usage
+//        this.productCategory.addProduct(this);
     }
 
     public Supplier getSupplier() {
@@ -57,7 +67,9 @@ public class Product extends BaseModel {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
-        this.supplier.addProduct(this);
+
+        //daomem usage
+//        this.supplier.addProduct(this);
     }
 
     @Override

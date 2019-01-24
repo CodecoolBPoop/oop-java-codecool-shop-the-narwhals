@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 
 public class LineItem extends BaseModel {
@@ -18,8 +19,17 @@ public class LineItem extends BaseModel {
         this.totalPrice = product.getDefaultPrice();
     }
 
+    public LineItem(Product product, int id, int numberOfProducts, String name, String description,int productId) {
+        super(name, description);
+        this.id = id;
+        this.numberOfProducts = numberOfProducts;
+        this.productId = productId;
+        this.UNIT_PRICE = product.getDefaultPrice();
+        this.totalPrice = product.getDefaultPrice();
+    }
+
     public String getProductName() {
-        ProductDaoMem productStore = ProductDaoMem.getInstance();
+        ProductDaoJDBC productStore = ProductDaoJDBC.getInstance();
         return productStore.find(productId).getName();
     }
 

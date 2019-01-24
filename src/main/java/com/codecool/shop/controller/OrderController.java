@@ -2,7 +2,10 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.OrderDaoJDBC;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
@@ -41,15 +44,16 @@ public class OrderController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int productId =  Integer.parseInt(req.getParameter("productId"));
 
-        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
-        Product product = productDataStore.getBy(productId);
+        ProductDaoJDBC productDataStore = ProductDaoJDBC.getInstance();
+//        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
+        Product product = productDataStore.find(productId);
         Order order = Order.getInstance();
         order.addProduct(product);
 
-        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
         if (orderDataStore.find(order.getId()) == null) {
             orderDataStore.add(order);
         }
@@ -60,14 +64,14 @@ public class OrderController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int change = Integer.parseInt(req.getParameter("change"));
         int productId = Integer.parseInt(req.getParameter("productId"));
 
-        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
-        Order currentOrder = orderDataStore.findLast();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+        Order currentOrder = ((OrderDaoMem) orderDataStore).findLast();
 
-        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
         Product currentProduct = productDataStore.find(productId);
 
         LineItem currentLineItem = currentOrder.getLineItemByProductId(productId);

@@ -1,5 +1,3 @@
-.glyphicon {
-}
 body {
     font-family: 'Aldrich';
 }
@@ -26,10 +24,6 @@ body {
     margin: 20px;
 }
 
-.jumbotron {
-    background-image: url("blue.png");
-
-}
 h1 {
     font-size: 45px;
     font-weight: bold;
@@ -102,11 +96,14 @@ body {
 }
 
 #price-container {
-    margin-bottom: 25px;
+    padding: 15px;
+    text-align: center;
+    margin: 0;
 }
 
-.payment-contain {
+.payment {
     margin-bottom: 40px;
+    min-width: 200px;
 }
 
 .back-to-checkout {
@@ -115,4 +112,13 @@ body {
 
 h1 a {
     color: white;
+}
+
+.payment-container {
+    width: 450px;
+}
+
+.main-title {
+    background-image: url("blue.png");
+    margin: 0;
 }

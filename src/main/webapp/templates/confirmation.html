@@ -34,17 +34,15 @@
             &nbsp;Credits
         </div>
     </div>
-    <div class="d-flex flex-row-reverse">
-        <div class="d-flex flex-column">
-            <h class="p-2">
-                Order total:&nbsp;
-                <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
-                Credits
-            </h>
-            <div class="p-2">
-                <a class="btn btn-success" href="/">Checkout</a>
-            </div>
-        </div>
+    <div class="d-flex justify-content-end">
+        <h6 class="conf-order-total">
+            Order total:&nbsp;
+            <span id="order-total-span" th:text="${#numbers.formatDecimal(order.getTotalSum(), 0, 2)}"></span>
+            Credits
+        </h6>
+    </div>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-success" href="/">Back to Main page</a>
     </div>
 </div>
 </body>

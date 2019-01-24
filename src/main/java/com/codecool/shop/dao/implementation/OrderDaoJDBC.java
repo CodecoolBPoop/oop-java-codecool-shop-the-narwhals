@@ -6,11 +6,14 @@ import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.personal.Address;
 import com.codecool.shop.personal.ContactInfo;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class OrderDaoJDBC implements OrderDao {
     private static OrderDaoJDBC instance = null;
@@ -47,15 +50,30 @@ public class OrderDaoJDBC implements OrderDao {
         }
 
     }
-
-    @Override
     public void add(Order order) {
-
 
     }
 
-    public void add(LineItem lineItem) {
-        String lineItemQuery = " INSERT INTO line_item (id, number_of_products, product_id, order_info_id) VALUES (?,?,?,?);";
+    public void addToDB(Order order) {
+        String orderQuery = " INSERT INTO order_info (name, description, total_sum, currency, " +
+                " contact_info_id)" +
+                " VALUES (?,?,?,?,?);";
+
+        try(Connection connection = ShopDBCreator.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(orderQuery)
+
+        ) {
+            preparedStatement.setString(1, order.getName());
+            preparedStatement.setString(2, order.getDescription());
+            preparedStatement.setFloat(3, order.getTotalSum());
+            preparedStatement.setString(4, order.getCurrency());
+            preparedStatement.setInt(5, order.getContactInfoId());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -94,29 +112,49 @@ public class OrderDaoJDBC implements OrderDao {
         String orderQuery = "SELECT * FROM order_info" +
                 " WHERE id = " + orderId + ";";
 
+        return getSingleOrderFromQuery(orderQuery);
+    }
+
+    private Order getSingleOrderFromQuery(String orderQuery) {
         try (Connection connection = ShopDBCreator.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(orderQuery)
-        ){
+        ) {
+            Order order = getOrderObject(resultSet);
+
+
+            return order;
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+            return null;
+        }
+    }
+
+    private Order getOrderObject(ResultSet resultSet) throws SQLException {
+        if (!resultSet.next()) {
+            return null;
+        } else {
             resultSet.next();
+            int orderIdFromDB = resultSet.getInt("id");
             String name = resultSet.getString("name");
             String description = resultSet.getString("description");
             int totalSum = resultSet.getInt("total_sum");
             String currency = resultSet.getString("currency");
-            int contactInfoId = resultSet.getInt("contact_info_id");
 
             OrderDaoJDBC orderDataStore = OrderDaoJDBC.getInstance();
-            List<LineItem> lineItems = orderDataStore.getLineItems(orderId);
+            ContactInfo contactInfo = orderDataStore.getContactInfo(orderIdFromDB);
+            List<LineItem> lineItems = orderDataStore.getLineItems(orderIdFromDB);
 
-            Order order = new Order()
-
-
-            return order;
-            } catch (SQLException e1) {
-            e1.printStackTrace();
+            return new Order(orderIdFromDB, name, description, totalSum, currency, contactInfo, lineItems);
         }
-        return null;
     }
+
+    public Order findLast() {
+        String orderQuery = "SELECT * from order_info ORDER BY id DESC LIMIT 1;";
+
+        return getSingleOrderFromQuery(orderQuery);
+    }
+
 
     public ContactInfo getContactInfo(int orderId) {
         String contactInfoQuery = "SELECT * FROM contact_info" +
@@ -132,10 +170,11 @@ public class OrderDaoJDBC implements OrderDao {
             String email = resultSet.getString("email");
             String phoneNumber = resultSet.getString("phone_number");
             String billingAddress = resultSet.getString("billing_address");
+            Address billingAddressObj = new Address(Address.getAddressFields(billingAddress));
             String shippingAddress = resultSet.getString("shipping_address");
+            Address shippingAddressObj = new Address(Address.getAddressFields(shippingAddress));
 
-            OrderDaoJDBC orderDataStore = OrderDaoJDBC.getInstance();
-            ContactInfo contactInfo = new ContactInfo(contactInfoId, name, email, phoneNumber, billingAddress, shippingAddress);
+            ContactInfo contactInfo = new ContactInfo(contactInfoId, name, email, phoneNumber, billingAddressObj, shippingAddressObj);
 
             return contactInfo;
         } catch (SQLException e1) {
@@ -143,8 +182,6 @@ public class OrderDaoJDBC implements OrderDao {
         }
         return null;
     }
-
-
 
     @Override
     public void remove(int id) {

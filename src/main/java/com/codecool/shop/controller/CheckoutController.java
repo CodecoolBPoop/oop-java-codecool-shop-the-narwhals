@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoJDBC;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Order;
@@ -43,8 +44,8 @@ public class CheckoutController extends HttpServlet {
         Address billingAddressObj = new Address(billingAddress, billingCity, billingCountry, billingZip);
         Address shippingAddressObj = new Address(shippingAddress, shippingCity, shippingCountry, shippingZip);
 
-        OrderDaoJDBC orderDataStore = OrderDaoJDBC.getInstance();
-        Order order = orderDataStore.findLast();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+        Order order = ((OrderDaoMem) orderDataStore).findLast();
 
         order.addContactInfo(name, email, phoneNumber, billingAddressObj, shippingAddressObj);
 

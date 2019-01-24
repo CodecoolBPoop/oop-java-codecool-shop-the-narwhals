@@ -44,7 +44,7 @@ public class OrderController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int productId =  Integer.parseInt(req.getParameter("productId"));
 
         ProductDaoJDBC productDataStore = ProductDaoJDBC.getInstance();
@@ -53,7 +53,7 @@ public class OrderController extends HttpServlet {
         Order order = Order.getInstance();
         order.addProduct(product);
 
-        OrderDaoJDBC orderDataStore = OrderDaoJDBC.getInstance();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
         if (orderDataStore.find(order.getId()) == null) {
             orderDataStore.add(order);
         }
@@ -64,14 +64,14 @@ public class OrderController extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int change = Integer.parseInt(req.getParameter("change"));
         int productId = Integer.parseInt(req.getParameter("productId"));
 
-        OrderDaoMem orderDataStore = OrderDaoMem.getInstance();
-        Order currentOrder = orderDataStore.findLast();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+        Order currentOrder = ((OrderDaoMem) orderDataStore).findLast();
 
-        ProductDaoMem productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = ProductDaoJDBC.getInstance();
         Product currentProduct = productDataStore.find(productId);
 
         LineItem currentLineItem = currentOrder.getLineItemByProductId(productId);

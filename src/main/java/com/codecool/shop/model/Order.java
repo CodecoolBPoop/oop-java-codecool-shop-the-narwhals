@@ -19,11 +19,12 @@ public class Order extends BaseModel{
         super(orderName, orderDescription);
     }
 
-//    public Order(int id, String name, String description, int totalSum, int contactInfoId, List<LineItem> lineItems) {
-//        super(name, description);
-//        this.id = id;
-//        this.totalSum = totalSum;
-//    }
+    public Order(int id, String name, String description, int totalSum, String currency, ContactInfo contactInfo, List<LineItem> lineItems) {
+        super(name, description);
+        this.id = id;
+        this.totalSum = totalSum;
+        this.contactInfo = contactInfo;
+    }
 
     public static Order getInstance() {
         if (instance == null) {
@@ -93,5 +94,13 @@ public class Order extends BaseModel{
 
     public void addContactInfo(String name, String email, String phoneNumber, Address billingAddress, Address shippingAddress) {
         this.contactInfo = new ContactInfo(name, email, phoneNumber, billingAddress, shippingAddress);
+    }
+
+    public String getCurrency() {
+        return CURRENCY;
+    }
+
+    public int getContactInfoId() {
+        return contactInfo.getId();
     }
 }

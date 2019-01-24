@@ -59,7 +59,7 @@ public class ProductDaoJDBC implements ProductDao {
             ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
             Supplier supplier = supplierDataStore.find(supplierId);
 
-            Product product = new Product(productId,    name, defaultPrice, description, currencyString, productCategory, supplier);
+            Product product = new Product(productId, name, description, defaultPrice, currencyString, productCategory, supplier);
             return product;
 
         } catch (SQLException e) {
@@ -100,7 +100,7 @@ public class ProductDaoJDBC implements ProductDao {
                 ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
                 Supplier supplier = supplierDataStore.find(supplierId);
 
-                Product product = new Product(productId,    name, defaultPrice, description, currencyString, productCategory, supplier);
+                Product product = new Product(productId, name, description, defaultPrice, currencyString, productCategory, supplier);
                 resultList.add(product);
             }
 
@@ -137,7 +137,7 @@ public class ProductDaoJDBC implements ProductDao {
                 ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
                 ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
 
-                Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
+                Product product = new Product(productId, name, description, defaultPrice, currencyString, productCategory, supplier);
                 resultList.add(product);
             }
 
@@ -173,7 +173,7 @@ public class ProductDaoJDBC implements ProductDao {
                 SupplierDao supplierDataStore = SupplierDaoJDBC.getInstance();
                 Supplier supplier = supplierDataStore.find(supplierId);
 
-                Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
+                Product product = new Product(productId, name, description, defaultPrice, currencyString, productCategory, supplier);
                 resultList.add(product);
             }
 
@@ -212,7 +212,7 @@ public class ProductDaoJDBC implements ProductDao {
             Supplier supplier = supplierDataStore.find(supplierId);
             ProductCategory productCategory = productCategoryDataStore.find(productCategoryId);
 
-            Product product = new Product(productId, name, defaultPrice, description, currencyString, productCategory, supplier);
+            Product product = new Product(productId, name, description, defaultPrice, currencyString, productCategory, supplier);
             resultList.add(product);
             }
 

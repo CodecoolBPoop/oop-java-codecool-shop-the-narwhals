@@ -19,6 +19,7 @@ public class ConfirmationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         OrderDao orderDataStore = OrderDaoMem.getInstance();
+        Order currentOrder = Order.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(request.getServletContext());
         WebContext context = new WebContext(request, response, request.getServletContext());
@@ -26,6 +27,7 @@ public class ConfirmationController extends HttpServlet {
         Order order = ((OrderDaoMem) orderDataStore).findLast();
         context.setVariable("order", order);
         orderDataStore.remove(order.getId());
+        currentOrder.resetInstance();
 
         engine.process("confirmation.html", context, response.getWriter());
     }

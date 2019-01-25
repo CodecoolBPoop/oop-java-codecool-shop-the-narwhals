@@ -112,4 +112,8 @@ public class Order extends BaseModel{
     public void setContactInfoId(int id) {
         contactInfo.setId(id);
     }
+
+    public void resetInstance(){
+        instance =null;
+    }
 }

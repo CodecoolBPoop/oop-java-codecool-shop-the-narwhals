@@ -17,6 +17,9 @@ import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
 
+    // TODO: inkább csináljunk egy lekérdezést akár több join-nal, és javában hozzunk létre belőle több, egymást tartalmazó objectet;
+    //       sql-ben minden objectnek legyen külön tábla,
+    //       java objectek tartalmazzanak másik objectre mutató referenciát (ne csak az id-t)
 
     private static ProductDaoJDBC instance = null;
     public ProductDaoJDBC() {
@@ -34,7 +37,7 @@ public class ProductDaoJDBC implements ProductDao {
     public void add(Product product) {
 
     }
-
+// TODO: Function<ResultSet, R> >> return callback.apply(resultSet, query)
     @Override
     public Product find(int id) {
         String query = "SELECT * FROM product " +
@@ -49,6 +52,8 @@ public class ProductDaoJDBC implements ProductDao {
             return product;
 
         } catch (SQLException e) {
+            // TODO: let the controller hendle the exception;
+            //  create new unchecked exception out of the context of the SQLException so that it can be thrown to the controller
             e.printStackTrace();
             return null;
         }

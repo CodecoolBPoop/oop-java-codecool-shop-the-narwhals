@@ -3,7 +3,7 @@ package com.codecool.shop.database;
 import java.sql.*;
 
 public class ShopDBCreator {
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
+    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";  // TODO: put host & db name into environmental variable too
     private static final String DB_USER = System.getenv("POSTGRES_DB_USER");
     private static final String DB_PASSWORD = System.getenv("POSTGRES_DB_PASSWORD");
 

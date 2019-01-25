@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierDaoJDBC implements SupplierDao {
+public class SupplierDaoJDBC implements SupplierDao { // TODO: use a jdbc abstract class here?
 
     private static SupplierDaoJDBC instance = null;
 
@@ -41,7 +41,7 @@ public class SupplierDaoJDBC implements SupplierDao {
                 "WHERE id = " + id + ";";
 
 
-        try(Connection connection = ShopDBCreator.getConnection();
+        try(Connection connection = ShopDBCreator.getConnection(); // TODO: how to put the try-catch block into a method? process data outside of try?
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query)
         ) {
